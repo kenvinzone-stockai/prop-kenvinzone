@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prop.kenvinzone.com/sitemap.xml
