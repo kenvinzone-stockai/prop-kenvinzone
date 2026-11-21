@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KENVINZONE PROP HUB — Tổng Hợp Rule Quỹ Bulenox, Earn2Trade & Topstep (2026)</title>
+  <meta name="description" content="Dashboard tra cứu mọi ngóc ngách Rule thi quỹ Futures: Bulenox, Earn2Trade, Topstep cập nhật 2026. Công cụ tính Consistency Rule, chi phí thực tế, mã giảm giá và hệ thống giao dịch Aurora Kenvinzone." />
+  <meta name="theme-color" content="#070F1D" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='7' fill='%23080E1B'/%3E%3Cpath d='M4 21L10 15L15 19L24 7' stroke='%2338D5E7' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="kz-bg-grid">
+
+  <!-- Top Scroll Telemetry Progress Beam -->
+  <div class="kz-scroll-beam-track" aria-hidden="true">
+    <div class="kz-scroll-beam" id="kzScrollBeam"></div>
+  </div>
+
+  <!-- Floating Chapter Rail HUD (Desktop) -->
+  <nav class="kz-chapter-rail" aria-label="Điều hướng nhanh theo mục">
+    <a href="#so-sanh" data-chapter-link="so-sanh" data-label="01 · So sánh 3 quỹ" data-i18n-label="rail.compare"></a>
+    <a href="#chi-tiet-quy" data-chapter-link="chi-tiet-quy" data-label="02 · Chi tiết Rule" data-i18n-label="rail.rules"></a>
+    <a href="#cong-cu" data-chapter-link="cong-cu" data-label="03 · Công cụ tính" data-i18n-label="rail.tools"></a>
+    <a href="#ma-giam-gia" data-chapter-link="ma-giam-gia" data-label="04 · Mã giảm giá" data-i18n-label="rail.coupons"></a>
+    <a href="#aurora" data-chapter-link="aurora" data-label="05 · Aurora V12.2" data-i18n-label="rail.aurora"></a>
+  </nav>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="kz-hd">
+    <div class="kz-hd-in">
+      <div class="kz-brand">
+        <a href="index.html" class="kz-logo">
+          <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect width="28" height="28" rx="7" fill="#0A1426" stroke="#38D5E7" stroke-opacity="0.45"/>
+            <path d="M5 20L10.5 14.5L15 18.2L23 7.5" stroke="#38D5E7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="23" cy="7.5" r="2.2" fill="#F3BE62"/>
+          </svg>
+          <span>KENVINZONE</span>
+        </a>
+        <span class="kz-prod-badge">PROP HUB</span>
+      </div>
+
+      <nav class="kz-nav" id="mainNav">
+        <a href="#so-sanh" class="active" data-i18n="nav.compare">So sánh 3 quỹ</a>
+        <a href="#chi-tiet-quy" data-i18n="nav.rules">Chi tiết Rule</a>
+        <a href="#cong-cu" data-i18n="nav.tools">Công cụ tính</a>
+        <a href="coupons.html" class="nav-coupon" data-i18n="nav.coupons">🔥 Mã giảm giá</a>
+        <a href="#aurora">Aurora V12.2</a>
+      </nav>
+
+      <div class="kz-hd-r">
+        <button type="button" class="kz-icon-btn mono" id="langToggle" style="font-size:12px;font-weight:800;width:42px" title="Switch Language (VI / EN)" aria-label="Switch language">EN</button>
+        <button type="button" class="kz-icon-btn" id="themeToggle" title="Chuyển giao diện Sáng / Tối" aria-label="Đổi giao diện">
+          🌓
+        </button>
+        <a href="coupons.html" class="kz-cta kz-cta-gold" data-i18n="nav.ctaCoupon">Săn Coupon HOT</a>
+        <button type="button" class="kz-icon-btn kz-menu-btn" id="menuToggle" aria-label="Mở menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Futures & Coupon Telemetry Marquee -->
+  <div class="kz-ticker" aria-label="Thông báo nhanh quỹ Futures & mã giảm giá">
+    <div class="kz-ticker-track">
+      <span class="kz-ticker-item"><span class="kz-ticker-dot"></span><strong>BULENOX:</strong> Mã <span class="mono" style="color:var(--kz-gold)">5BAAG</span> giảm tới 89% Option 1 (từ $15.95) & 75% Option 2 EOD</span>
+      <span class="kz-ticker-item"><span class="kz-ticker-dot" style="background:var(--kz-gold)"></span><strong>EARN2TRADE BLACK WEEK:</strong> Mã <span class="mono" style="color:var(--kz-gold)">BIGBF2026</span> giảm tới 70% (2 tháng) + giảm phí Reset</span>
+      <span class="kz-ticker-item"><span class="kz-ticker-dot" style="background:var(--kz-green)"></span><strong>TOPSTEP FRIENDSGIVING:</strong> Mã <span class="mono" style="color:var(--kz-green)">KENVINZONE</span> giảm 50% lần đầu (chỉ từ $24.50)</span>
+      <span class="kz-ticker-item"><span class="kz-ticker-dot" style="background:var(--kz-cyan)"></span><strong>AURORA V12.2:</strong> Setup 1st/2nd Break + Entry/F-SL/TP 1R-2R tối ưu thi quỹ NQ, ES, GC</span>
+      <!-- Duplicate for seamless infinite loop -->
+      <span class="kz-ticker-item"><span class="kz-ticker-dot"></span><strong>BULENOX:</strong> Mã <span class="mono" style="color:var(--kz-gold)">5BAAG</span> giảm tới 89% Option 1 (từ $15.95) & 75% Option 2 EOD</span>
+      <span class="kz-ticker-item"><span class="kz-ticker-dot" style="background:var(--kz-gold)"></span><strong>EARN2TRADE BLACK WEEK:</strong> Mã <span class="mono" style="color:var(--kz-gold)">BIGBF2026</span> giảm tới 70% (2 tháng) + giảm phí Reset</span>
+      <span class="kz-ticker-item"><span class="kz-ticker-dot" style="background:var(--kz-green)"></span><strong>TOPSTEP FRIENDSGIVING:</strong> Mã <span class="mono" style="color:var(--kz-green)">KENVINZONE</span> giảm 50% lần đầu (chỉ từ $24.50)</span>
+      <span class="kz-ticker-item"><span class="kz-ticker-dot" style="background:var(--kz-cyan)"></span><strong>AURORA V12.2:</strong> Setup 1st/2nd Break + Entry/F-SL/TP 1R-2R tối ưu thi quỹ NQ, ES, GC</span>
+    </div>
+  </div>
+
+  <!-- ==================== HERO ==================== -->
+  <main>
+    <section class="hero kz-aurora-wrap">
+      <canvas id="kzHeroFlowCanvas" aria-hidden="true"></canvas>
+      <div class="kz-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="hero-eyebrow">
+              <span class="hero-dot"></span>
+              <span data-i18n="hero.eyebrow">Cập nhật Rule Futures 2026 · Dữ liệu:</span> <span data-last-updated>21/11/2026</span>
+            </div>
+            <h1 data-i18n-html="hero.title">
+              Bản Đồ Luật Thi Quỹ <br />
+              <span class="grad-cyan">Bulenox</span> · <span class="grad-gold">Earn2Trade</span> · <span style="color:var(--kz-green)">Topstep</span>
+            </h1>
+            <p class="hero-desc" data-i18n-html="hero.desc">
+              Tra cứu trọn bộ mọi ngóc ngách gói thi, Drawdown (Intraday vs EOD), Daily Loss Limit, Consistency Rule, Scaling Plan và các <strong>"bẫy ngầm" dễ cháy tài khoản</strong> — tổng hợp thực chiến cho cộng đồng Trader Quỹ Kenvinzone.
+            </p>
+            <div class="hero-actions">
+              <a href="#chi-tiet-quy" class="kz-cta kz-cta-cyan" data-i18n="hero.btnRules">Tra cứu Rule chi tiết ↓</a>
+              <a href="coupons.html" class="kz-cta kz-cta-gold" data-i18n="hero.btnCoupons">🔥 Kho Mã Giảm Giá & Link Ref</a>
+              <a href="#cong-cu" class="kz-cta kz-cta-ghost" data-i18n="hero.btnTools">Tính Consistency & Chi phí</a>
+            </div>
+            <div class="hero-meta">
+              <span data-i18n="hero.meta1">✓ Đã cập nhật luật mới Earn2Trade 02/11/2026</span>
+              <span data-i18n="hero.meta2">✓ Có bảng XFA Scaling & 2 nhánh Payout Topstep</span>
+              <span data-i18n="hero.meta3">✓ Quy đổi giờ đóng lệnh sang giờ Việt Nam</span>
+            </div>
+          </div>
+
+          <aside class="hero-panel">
+            <div class="hero-panel-head">
+              <span class="hero-panel-title" data-i18n="hero.panelTitle">Nhảy nhanh tới từng quỹ</span>
+              <span class="tag tag-green" data-i18n="hero.panelBadge">3 Quỹ Futures Top đầu</span>
+            </div>
+            <div class="quick-firm-list">
+              <div class="quick-firm-item" data-jump-firm="bulenox">
+                <div>
+                  <div class="qf-name"><span class="qf-dot" style="background:#38D5E7"></span>Bulenox</div>
+                  <div class="qf-sub" data-i18n="hero.qfBulenoxSub">Option 1 (Trailing) & Option 2 (EOD) • 100% $10K đầu</div>
+                </div>
+                <span class="qf-pill tag-cyan" data-i18n="hero.qfBulenoxPill">Sale 83–91%</span>
+              </div>
+              <div class="quick-firm-item" data-jump-firm="earn2trade">
+                <div>
+                  <div class="qf-name"><span class="qf-dot" style="background:#F3BE62"></span>Earn2Trade</div>
+                  <div class="qf-sub" data-i18n="hero.qfE2tSub">TCP (scale $400K) & Gauntlet Mini • Đã bỏ Ladder</div>
+                </div>
+                <span class="qf-pill tag-gold" data-i18n="hero.qfE2tPill">Luật mới T11</span>
+              </div>
+              <div class="quick-firm-item" data-jump-firm="topstep">
+                <div>
+                  <div class="qf-name"><span class="qf-dot" style="background:#34D399"></span>Topstep</div>
+                  <div class="qf-sub" data-i18n="hero.qfTopstepSub">Combine từ $49 • Có gói $0 Activation • 5 XFA</div>
+                </div>
+                <span class="qf-pill tag-green" data-i18n="hero.qfTopstepPill">90/10 Split</span>
+              </div>
+            </div>
+
+            <!-- Interactive Live Motion Graphic: EOD vs Intraday Trailing Drawdown -->
+            <div class="dd-visualizer">
+              <div class="dd-vis-head">
+                <span class="mono" style="font-size:11px;font-weight:700;color:var(--kz-muted);letter-spacing:.05em" data-i18n="hero.ddTitle">MÔ PHỎNG DRAWDOWN TRỰC QUAN</span>
+                <div class="dd-vis-pills">
+                  <button type="button" class="dd-vis-btn active" data-dd-demo="eod" data-i18n="hero.ddEod">EOD (An toàn)</button>
+                  <button type="button" class="dd-vis-btn" data-dd-demo="intraday" data-i18n="hero.ddIntraday">Intraday Trailing</button>
+                </div>
+              </div>
+              <canvas id="kzDrawdownCanvas" aria-label="Biểu đồ mô phỏng EOD Drawdown và Intraday Trailing Drawdown"></canvas>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 1: COMPARISON MATRIX ==================== -->
+    <section class="section" id="so-sanh">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" data-i18n="s1.kicker">01 · Tổng quan trực diện</div>
+            <h2 class="section-title" data-i18n="s1.title">So Sánh Nhanh Luật Chơi Của 3 Quỹ</h2>
+            <p class="section-sub" data-i18n="s1.sub">Nhìn 1 bảng biết ngay quỹ nào hợp với phong cách giao dịch của bạn: Scalping, Intraday hay đánh theo Trend.</p>
+          </div>
+          <a href="coupons.html" class="kz-cta kz-cta-ghost" data-i18n="s1.btn">Xem mã giảm giá hiện hành →</a>
+        </div>
+
+        <div class="table-wrap">
+          <table class="prop-table">
+            <thead>
+              <tr>
+                <th style="width:20%" data-i18n="s1.colMetric">Tiêu chí cốt lõi</th>
+                <th style="width:26%;color:var(--kz-cyan)">Bulenox</th>
+                <th style="width:27%;color:var(--kz-gold)">Earn2Trade</th>
+                <th style="width:27%;color:var(--kz-green)">Topstep</th>
+              </tr>
+            </thead>
+            <tbody id="compareTableBody">
+              <!-- Populated by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2: DEEP-DIVE RULE EXPLORER ==================== -->
+    <section class="section" id="chi-tiet-quy">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" data-i18n="s2.kicker">02 · Soi từng ngóc ngách</div>
+            <h2 class="section-title" data-i18n="s2.title">Chi Tiết Gói Thi, Scaling Plan & "Bẫy Ngầm" Từng Quỹ</h2>
+            <p class="section-sub" data-i18n="s2.sub">Chọn quỹ bên dưới để xem đầy đủ bảng thông số từng gói, chính sách rút tiền và những điểm trader hay dính lỗi nhất.</p>
+          </div>
+        </div>
+
+        <div class="firm-tabs" role="tablist">
+          <button type="button" class="firm-tab active" data-firm-tab="bulenox" style="--tab-accent:#38D5E7">
+            <span class="qf-dot" style="background:#38D5E7"></span> Bulenox (Option 1 & 2)
+          </button>
+          <button type="button" class="firm-tab" data-firm-tab="earn2trade" style="--tab-accent:#F3BE62">
+            <span class="qf-dot" style="background:#F3BE62"></span> Earn2Trade (TCP & Gauntlet Mini)
+          </button>
+          <button type="button" class="firm-tab" data-firm-tab="topstep" style="--tab-accent:#34D399">
+            <span class="qf-dot" style="background:#34D399"></span> Topstep (Standard & NAF + XFA)
+          </button>
+        </div>
+
+        <div id="firmExplorerContent">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: INTERACTIVE CALCULATORS ==================== -->
+    <section class="section" id="cong-cu">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" data-i18n="s3.kicker">03 · Trợ lý tính nhanh cho Trader Quỹ</div>
+            <h2 class="section-title" data-i18n="s3.title">Công Cụ Tính Consistency Rule & Chi Phí Thực Tế</h2>
+            <p class="section-sub" data-i18n="s3.sub">Đừng đoán mò bằng mắt — nhập số liệu thực tế để kiểm tra xem bạn đã đạt chuẩn rút tiền / đỗ vòng thi hay chưa.</p>
+          </div>
+        </div>
+
+        <div class="calc-grid">
+          <!-- Consistency Calculator -->
+          <div class="card">
+            <div class="section-kicker" style="color:var(--kz-gold)" data-i18n="calc.consKicker">Máy tính Consistency Rule</div>
+            <h3 style="margin:0 0 14px;font-size:18px;color:var(--kz-strong)" data-i18n="calc.consTitle">Kiểm tra tỷ trọng ngày lãi lớn nhất</h3>
+            <div class="field" style="margin-bottom:12px">
+              <label for="calcConsFirm" data-i18n="calc.consFirmLabel">Chọn quy tắc quỹ</label>
+              <select id="calcConsFirm">
+                <option value="topstep_55" data-i18n="calc.consOpt1">Topstep Trading Combine — Giới hạn 55%</option>
+                <option value="topstep_40" data-i18n="calc.consOpt2">Topstep XFA Consistency Path — Giới hạn 40%</option>
+                <option value="bulenox_40" data-i18n="calc.consOpt3">Bulenox Master Account Payout — Giới hạn 40%</option>
+                <option value="e2t_30" data-i18n="calc.consOpt4">Earn2Trade Vòng thi (TCP / Gauntlet) — Giới hạn 30%</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="calcBestDay" data-i18n="calc.bestDay">Lãi ngày cao nhất ($)</label>
+                <input type="number" id="calcBestDay" value="1800" min="0" step="50" class="mono" />
+              </div>
+              <div class="field">
+                <label for="calcTotalProfit" data-i18n="calc.totalProfit">Tổng lãi hiện tại ($)</label>
+                <input type="number" id="calcTotalProfit" value="3000" min="0" step="50" class="mono" />
+              </div>
+            </div>
+            <div class="calc-result" id="calcConsResult"></div>
+          </div>
+
+          <!-- True Cost Calculator -->
+          <div class="card">
+            <div class="section-kicker" style="color:var(--kz-cyan)" data-i18n="calc.costKicker">Máy tính Tổng Chi Phí Lên Quỹ</div>
+            <h3 style="margin:0 0 14px;font-size:18px;color:var(--kz-strong)" data-i18n="calc.costTitle">Tính chi phí thực sau Mã giảm giá + Reset + Kích hoạt</h3>
+            <div class="form-row">
+              <div class="field">
+                <label for="costMonthly" data-i18n="calc.monthly">Phí tháng niêm yết ($)</label>
+                <input type="number" id="costMonthly" value="175" min="0" step="5" class="mono" />
+              </div>
+              <div class="field">
+                <label for="costDiscount" data-i18n="calc.discount">Mã giảm giá (%)</label>
+                <input type="number" id="costDiscount" value="83" min="0" max="99" step="1" class="mono" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="costResets" data-i18n="calc.resets">Số lần Reset dự kiến</label>
+                <input type="number" id="costResets" value="0" min="0" step="1" class="mono" />
+              </div>
+              <div class="field">
+                <label for="costResetPrice" data-i18n="calc.resetPrice">Phí mỗi lần Reset ($)</label>
+                <input type="number" id="costResetPrice" value="78" min="0" step="5" class="mono" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="costActivation" data-i18n="calc.activation">Phí kích hoạt Funded/Master ($)</label>
+              <input type="number" id="costActivation" value="148" min="0" step="5" class="mono" />
+            </div>
+            <div class="calc-result" id="costResult"></div>
+          </div>
+        </div>
+
+        <!-- CME Close Time Converter Strip -->
+        <div class="clock-strip">
+          <div class="clock-card">
+            <span class="tag tag-green" style="margin-bottom:8px" data-i18n="clk.tsBadge">TOPSTEP — SỚM NHẤT</span>
+            <div class="mono" style="font-size:20px;font-weight:800;color:var(--kz-strong)">3:10 PM CT</div>
+            <div style="font-size:13px;color:var(--kz-text2);margin-top:4px" data-i18n-html="clk.tsDesc">
+              Giờ VN: <strong>03:10 sáng</strong> (Mùa Hè) • <strong>04:10 sáng</strong> (Mùa Đông). Hệ thống bắt đầu flatten từ 3:08 PM CT.
+            </div>
+          </div>
+          <div class="clock-card">
+            <span class="tag tag-gold" style="margin-bottom:8px" data-i18n="clk.e2tBadge">EARN2TRADE</span>
+            <div class="mono" style="font-size:20px;font-weight:800;color:var(--kz-strong)">3:50 PM CT</div>
+            <div style="font-size:13px;color:var(--kz-text2);margin-top:4px" data-i18n-html="clk.e2tDesc">
+              Giờ VN: <strong>03:50 sáng</strong> (Mùa Hè) • <strong>04:50 sáng</strong> (Mùa Đông). Phiên mới mở lại lúc 5:00 PM CT.
+            </div>
+          </div>
+          <div class="clock-card">
+            <span class="tag tag-cyan" style="margin-bottom:8px" data-i18n="clk.bxBadge">BULENOX — MUỘN NHẤT</span>
+            <div class="mono" style="font-size:20px;font-weight:800;color:var(--kz-strong)">3:59 PM CT</div>
+            <div style="font-size:13px;color:var(--kz-text2);margin-top:4px" data-i18n-html="clk.bxDesc">
+              Giờ VN: <strong>03:59 sáng</strong> (Mùa Hè) • <strong>04:59 sáng</strong> (Mùa Đông). Tuyệt đối không giữ lệnh qua đêm.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4: HOT COUPONS PREVIEW ==================== -->
+    <section class="section" id="ma-giam-gia">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" style="color:var(--kz-gold)" data-i18n="s4.kicker">04 · Tiết kiệm chi phí thi quỹ</div>
+            <h2 class="section-title" data-i18n="s4.title">Mã Giảm Giá HOT Hôm Nay</h2>
+            <p class="section-sub" data-i18n="s4.sub">Đăng ký qua Link Ref Kenvinzone để luôn nhận mức giảm tối đa + hỗ trợ kiểm tra Rule trong cộng đồng.</p>
+          </div>
+          <a href="coupons.html" class="kz-cta kz-cta-gold" data-i18n="s4.btn">Mở trang Kho Coupon đầy đủ →</a>
+        </div>
+        <div class="coupon-grid" id="homeHotCoupons">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 5: AURORA KENVINZONE MARKETING ==================== -->
+    <section class="section" id="aurora">
+      <div class="container">
+        <div class="aurora-banner">
+          <div class="aurora-grid">
+            <div>
+              <span class="tag tag-cyan" style="margin-bottom:12px" data-i18n="au.badge">HỆ THỐNG ĐỘC QUYỀN TỪ KENVINZONE</span>
+              <h2 style="margin:0 0 12px;font-size:clamp(24px,3.2vw,36px);font-weight:800;line-height:1.18;color:#ffffff" data-i18n-html="au.title">
+                Biết Hết Luật Quỹ Là Chưa Đủ — Cần Hệ Thống Kỷ Luật Như <span class="grad-cyan">AURORA V12.2</span>
+              </h2>
+              <p style="margin:0;color:#b8c9df;font-size:15px" data-i18n-html="au.desc">
+                90% trader trượt quỹ Bulenox, Earn2Trade, Topstep không phải vì thiếu kiến thức, mà vì <strong>vào lệnh cảm tính</strong> khiến dính Intraday Trailing Drawdown hoặc gồng lỗ chạm Hard DLL.
+              </p>
+
+              <div class="aurora-points">
+                <div class="aurora-point">
+                  <span class="aurora-point-icon">✦</span>
+                  <span data-i18n-html="au.p1"><strong>Setup 1st / 2nd Break & SUNNY chuẩn hóa:</strong> Chỉ đánh theo cấu trúc xu hướng rõ ràng trên TradingView — hạn chế tối đa overtrade & cháy DLL.</span>
+                </div>
+                <div class="aurora-point">
+                  <span class="aurora-point-icon">✦</span>
+                  <span data-i18n-html="au.p2"><strong>Hiển thị sẵn Entry – F-SL – TP (1R / 2R):</strong> Đo rủi ro cố định trên từng lệnh để giữ Consistency Rule đều đặn, không đánh kiểu "all-in cầu may".</span>
+                </div>
+                <div class="aurora-point">
+                  <span class="aurora-point-icon">✦</span>
+                  <span data-i18n-html="au.p3"><strong>Smart Score & LIVE HUD 9 khung MTF:</strong> Lọc nhiễu phiên Mỹ cực nhanh ngay trên biểu đồ NQ, ES, GC (Vàng Futures), CL.</span>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:12px">
+                <a href="https://aurora.kenvinzone.com/" data-aurora-link target="_blank" rel="noopener noreferrer" class="kz-cta kz-cta-cyan" data-i18n="au.cta1">
+                  Khám phá Kenvinzone Aurora V12.2 →
+                </a>
+                <a href="https://t.me/kenvinzone" data-telegram-link target="_blank" rel="noopener noreferrer" class="kz-cta kz-cta-gold" data-i18n="au.cta2">
+                  Tham gia Cộng đồng Trader Quỹ
+                </a>
+              </div>
+            </div>
+
+            <div class="aurora-mock">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <span class="mono" style="font-size:12px;color:#38D5E7;font-weight:700">AURORA STANDARD V12.2 · TRADINGVIEW</span>
+                <span class="tag tag-green">PROP-READY</span>
+              </div>
+              <div style="padding:14px;border-radius:12px;background:rgba(56,213,231,0.08);border:1px solid rgba(56,213,231,0.22);margin-bottom:12px">
+                <div style="font-size:12px;color:#94a3b8" data-i18n="au.mockCap">Ví dụ kịch bản thi quỹ 50K ($3,000 Target / $2,000 EOD)</div>
+                <div style="font-size:14.5px;font-weight:700;color:#fff;margin-top:4px" data-i18n="au.mockMain">
+                  Rủi ro cố định $250/lệnh (0.5%) • Chốt 2R (+$500) theo kế hoạch Entry – F-SL – TP của Aurora
+                </div>
+                <div style="font-size:12.5px;color:#5eead4;margin-top:6px" data-i18n="au.mockSub">
+                  → Chỉ cần 6 lệnh 2R rải đều 4–6 phiên: Đạt chuẩn 30%–55% Consistency Rule mà không bao giờ chạm DLL!
+                </div>
+              </div>
+
+              <!-- Animated Aurora 1R / 2R Breakout Telemetry SVG -->
+              <div class="aurora-svg-wrap" aria-hidden="true">
+                <svg viewBox="0 0 360 96" width="100%" height="88" fill="none">
+                  <defs>
+                    <linearGradient id="kzSigGrad" x1="0" y1="0" x2="360" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#38D5E7"/>
+                      <stop offset="55%" stop-color="#5EEAD4"/>
+                      <stop offset="100%" stop-color="#F3BE62"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- TP 2R Line -->
+                  <line x1="12" y1="18" x2="348" y2="18" stroke="#34D399" stroke-opacity="0.45" stroke-dasharray="4 4"/>
+                  <text x="292" y="13" fill="#34D399" font-size="9.5" font-family="JetBrains Mono, monospace" font-weight="700">TP 2R (+$500)</text>
+                  <!-- Entry Line -->
+                  <line x1="12" y1="58" x2="348" y2="58" stroke="#38D5E7" stroke-opacity="0.35" stroke-dasharray="3 3"/>
+                  <text x="14" y="53" fill="#38D5E7" font-size="9" font-family="JetBrains Mono, monospace" font-weight="700">1st BREAK ENTRY</text>
+                  <!-- F-SL Line -->
+                  <line x1="12" y1="82" x2="348" y2="82" stroke="#FB7185" stroke-opacity="0.45" stroke-dasharray="4 4"/>
+                  <text x="288" y="92" fill="#FB7185" font-size="9.5" font-family="JetBrains Mono, monospace" font-weight="700">F-SL (-$250)</text>
+                  <!-- Animated Price Breakout Path -->
+                  <path class="aurora-signal-line" d="M16 74 L58 66 L94 72 L126 58 L162 46 L194 52 L242 32 L284 25 L336 18" stroke="url(#kzSigGrad)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="126" cy="58" r="4" fill="#38D5E7"/>
+                  <circle class="aurora-pulse-dot" cx="336" cy="18" r="4.5" fill="#F3BE62"/>
+                  <circle cx="336" cy="18" r="3" fill="#F3BE62"/>
+                </svg>
+              </div>
+
+              <div class="aurora-stat-row">
+                <div class="aurora-stat">
+                  <div class="mono" style="font-size:18px;font-weight:800;color:#38D5E7">9 MTF</div>
+                  <div style="font-size:11px;color:#94a3b8" data-i18n="au.stat1">Đồng thuận đa khung</div>
+                </div>
+                <div class="aurora-stat">
+                  <div class="mono" style="font-size:18px;font-weight:800;color:#F3BE62">1R / 2R</div>
+                  <div style="font-size:11px;color:#94a3b8" data-i18n="au.stat2">F-SL & TP định sẵn</div>
+                </div>
+                <div class="aurora-stat">
+                  <div class="mono" style="font-size:18px;font-weight:800;color:#34D399">LIVE HUD</div>
+                  <div style="font-size:11px;color:#94a3b8" data-i18n="au.stat3">Tự kiểm chứng chart</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="kz-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <span data-i18n-html="ft.main"><strong style="color:var(--kz-strong)">KENVINZONE PROP HUB</strong> · Tài liệu tham khảo & so sánh luật thi quỹ Futures cho cộng đồng trader Việt Nam.</span>
+          <div style="margin-top:4px;font-size:12px" data-i18n="ft.disclaimer">
+            Lưu ý: Luật các quỹ (Bulenox, Earn2Trade, Topstep) có thể thay đổi theo thời điểm. Luôn kiểm tra lại điều khoản mới nhất tại trang chủ quỹ trước khi mua gói. Một số đường dẫn là Affiliate Link giúp duy trì website miễn phí cho cộng đồng.
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <a href="index.html">Dashboard Rule</a>
+          <a href="coupons.html" style="color:var(--kz-gold)" data-i18n="nav.coupons">Mã giảm giá</a>
+          <a href="https://aurora.kenvinzone.com/" data-aurora-link target="_blank" rel="noopener noreferrer" style="color:var(--kz-cyan)">Aurora V12.2</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="lang.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="motion.js" defer></script>
+</body>
+</html>

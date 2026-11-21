@@ -1,0 +1,651 @@
+/* ============================================================================
+   KENVINZONE PROP HUB — MOTION GRAPHIC & SCROLL CRAFT ENGINE
+   - Composite-only animations (transform & opacity) for 60/120fps
+   - Respects prefers-reduced-motion
+   - Works with GSAP + ScrollTrigger (CDN) and gracefully falls back offline
+   ============================================================================ */
+
+(function () {
+  const prefersReduced =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 1. Scroll Progress Telemetry Beam + Chapter Rail HUD ---------- */
+  function initScrollTelemetry() {
+    const beam = document.getElementById("kzScrollBeam");
+    const railLinks = Array.from(document.querySelectorAll("[data-chapter-link]"));
+    const sections = railLinks
+      .map((a) => {
+        const id = a.getAttribute("data-chapter-link");
+        const el = document.getElementById(id);
+        return el ? { id, el, link: a } : null;
+      })
+      .filter(Boolean);
+
+    let ticking = false;
+
+    function update() {
+      ticking = false;
+      const doc = document.documentElement;
+      const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+
+      if (beam) {
+        beam.style.transform = `scaleX(${progress.toFixed(4)})`;
+      }
+
+      if (sections.length) {
+        const probe = window.scrollY + window.innerHeight * 0.36;
+        let activeId = sections[0].id;
+        for (let i = 0; i < sections.length; i++) {
+          if (sections[i].el.offsetTop <= probe) {
+            activeId = sections[i].id;
+          }
+        }
+        sections.forEach((s) => s.link.classList.toggle("active", s.id === activeId));
+      }
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+  }
+
+  /* ---------- 2. Pointer Spotlight Effect (--mx, --my) ---------- */
+  function initSpotlights() {
+    if (prefersReduced) return;
+    const selector = ".card, .coupon-card, .quick-firm-item, .trap-card, .aurora-banner, .clock-card";
+
+    document.addEventListener(
+      "pointermove",
+      (e) => {
+        const target = e.target && e.target.closest ? e.target.closest(selector) : null;
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        target.style.setProperty("--mx", (e.clientX - rect.left).toFixed(1) + "px");
+        target.style.setProperty("--my", (e.clientY - rect.top).toFixed(1) + "px");
+      },
+      { passive: true }
+    );
+  }
+
+  /* ---------- 3. Bespoke Motion Graphic: Live Equity vs Trailing/EOD Drawdown ---------- */
+  function initDrawdownCanvas() {
+    const canvas = document.getElementById("kzDrawdownCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const modeBtns = document.querySelectorAll("[data-dd-demo]");
+    let demoMode = "eod"; // "eod" or "intraday"
+    let isVisible = true;
+    let t = 0;
+    let rafId = null;
+
+    modeBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        demoMode = b.getAttribute("data-dd-demo") || "eod";
+        modeBtns.forEach((x) => x.classList.toggle("active", x === b));
+        t = 0.12;
+      });
+    });
+
+    // Normalized price/equity path across a trading session (0..1)
+    const points = [
+      0.42, 0.46, 0.58, 0.74, 0.84, 0.79, 0.62, 0.52, 0.47, 0.55, 0.66, 0.76, 0.72, 0.81, 0.9
+    ];
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width <= 0) return;
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function samplePath(u) {
+      const idx = u * (points.length - 1);
+      const i0 = Math.floor(idx);
+      const i1 = Math.min(points.length - 1, i0 + 1);
+      const f = idx - i0;
+      return points[i0] + (points[i1] - points[i0]) * f;
+    }
+
+    function drawFrame() {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w <= 0 || h <= 0) return;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const padX = 14;
+      const padY = 16;
+      const plotW = w - padX * 2;
+      const plotH = h - padY * 2;
+
+      // Subtle horizontal grid lines
+      ctx.strokeStyle = "rgba(143, 163, 191, 0.12)";
+      ctx.lineWidth = 1;
+      for (let g = 0; g <= 3; g++) {
+        const y = padY + (plotH / 3) * g;
+        ctx.beginPath();
+        ctx.moveTo(padX, y);
+        ctx.lineTo(w - padX, y);
+        ctx.stroke();
+      }
+
+      const steps = 64;
+      const progress = prefersReduced ? 1 : t;
+      const maxStep = Math.max(2, Math.floor(steps * progress));
+
+      // Compute equity & drawdown floor series
+      let highWater = points[0];
+      const eqCoords = [];
+      const floorCoords = [];
+
+      for (let i = 0; i <= maxStep; i++) {
+        const u = i / steps;
+        const val = samplePath(u);
+        if (val > highWater) highWater = val;
+
+        const x = padX + u * plotW;
+        const yEq = padY + (1 - val) * plotH;
+
+        // Intraday trails real-time highWater; EOD stays flat during session until close
+        const floorVal =
+          demoMode === "intraday"
+            ? Math.max(0.14, highWater - 0.34)
+            : u < 0.88
+              ? 0.16
+              : 0.34;
+        const yFloor = padY + (1 - floorVal) * plotH;
+
+        eqCoords.push({ x, y: yEq });
+        floorCoords.push({ x, y: yFloor });
+      }
+
+      // Danger zone fill under drawdown floor
+      ctx.beginPath();
+      ctx.moveTo(floorCoords[0].x, h - padY);
+      floorCoords.forEach((p) => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(floorCoords[floorCoords.length - 1].x, h - padY);
+      ctx.closePath();
+      ctx.fillStyle =
+        demoMode === "intraday"
+          ? "rgba(251, 113, 133, 0.14)"
+          : "rgba(52, 211, 153, 0.10)";
+      ctx.fill();
+
+      // Drawdown Floor Line
+      ctx.beginPath();
+      floorCoords.forEach((p, idx) => (idx === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+      ctx.setLineDash([5, 4]);
+      ctx.strokeStyle = demoMode === "intraday" ? "#FB7185" : "#34D399";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Equity area gradient
+      const grad = ctx.createLinearGradient(0, padY, 0, h - padY);
+      grad.addColorStop(0, "rgba(56, 213, 231, 0.28)");
+      grad.addColorStop(1, "rgba(56, 213, 231, 0.0)");
+      ctx.beginPath();
+      ctx.moveTo(eqCoords[0].x, h - padY);
+      eqCoords.forEach((p) => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(eqCoords[eqCoords.length - 1].x, h - padY);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Equity Curve Line
+      ctx.beginPath();
+      eqCoords.forEach((p, idx) => (idx === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+      ctx.strokeStyle = "#38D5E7";
+      ctx.lineWidth = 2.4;
+      ctx.stroke();
+
+      // Live glowing head dot
+      const last = eqCoords[eqCoords.length - 1];
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = "#38D5E7";
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, 9, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(56, 213, 231, 0.25)";
+      ctx.fill();
+
+      // Dynamic caption inside canvas (supports VI / EN live switch)
+      const capIntraday =
+        (window.KZ_LANG && window.KZ_LANG.t("ddCanvasIntraday")) ||
+        "INTRADAY TRAILING: Sàn kéo lên theo cả lãi ảo!";
+      const capEod =
+        (window.KZ_LANG && window.KZ_LANG.t("ddCanvasEod")) ||
+        "EOD DRAWDOWN: Sàn đứng yên suốt phiên, chỉ cập nhật cuối ngày";
+      ctx.font = "700 11px 'JetBrains Mono', monospace";
+      ctx.fillStyle = demoMode === "intraday" ? "#FB7185" : "#34D399";
+      ctx.fillText(demoMode === "intraday" ? capIntraday : capEod, padX, 12);
+    }
+
+    function loop() {
+      if (!isVisible) {
+        rafId = null;
+        return;
+      }
+      if (!prefersReduced) {
+        t += 0.0042;
+        if (t > 1.18) t = 0.04;
+      }
+      drawFrame();
+      if (!prefersReduced) {
+        rafId = requestAnimationFrame(loop);
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          isVisible = entries[0].isIntersecting;
+          if (isVisible && !rafId) loop();
+        },
+        { threshold: 0.05 }
+      );
+      io.observe(canvas);
+    }
+
+    loop();
+  }
+
+  /* ---------- 3B. Hero Ambient Market Flow Canvas (60fps Neon Price Ribbons + Nodes) ---------- */
+  function initHeroFlowCanvas() {
+    const canvas = document.getElementById("kzHeroFlowCanvas");
+    if (!canvas || prefersReduced) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let visible = true;
+    let rafId = null;
+    let mouseX = 0.5;
+    let mouseY = 0.5;
+    let phase = 0;
+
+    const nodes = Array.from({ length: 26 }, (_, i) => ({
+      x: (i * 0.173) % 1,
+      y: ((i * 0.317 + 0.12) % 0.85) + 0.08,
+      r: 1.2 + (i % 3) * 0.7,
+      speed: 0.00018 + (i % 4) * 0.00009,
+      color: i % 3 === 0 ? "56,213,231" : i % 3 === 1 ? "243,190,98" : "52,211,153"
+    }));
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w <= 0 || h <= 0) return;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drawRibbon(w, h, baseY, amp, freq, speedMul, strokeStyle) {
+      ctx.beginPath();
+      const segs = 48;
+      const parallax = (mouseY - 0.5) * 18;
+      for (let i = 0; i <= segs; i++) {
+        const u = i / segs;
+        const x = u * w;
+        const y =
+          baseY * h +
+          parallax +
+          Math.sin(u * freq + phase * speedMul) * amp +
+          Math.cos(u * (freq * 0.55) - phase * speedMul * 0.7) * (amp * 0.5);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = strokeStyle;
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+    }
+
+    function tick() {
+      if (!visible) {
+        rafId = null;
+        return;
+      }
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w > 0 && h > 0) {
+        ctx.clearRect(0, 0, w, h);
+        phase += 0.012;
+
+        // 3 flowing market telemetry ribbons
+        drawRibbon(w, h, 0.32, 22, 5.2, 1.0, "rgba(56, 213, 231, 0.16)");
+        drawRibbon(w, h, 0.56, 28, 4.1, -0.75, "rgba(243, 190, 98, 0.12)");
+        drawRibbon(w, h, 0.74, 18, 6.4, 0.65, "rgba(52, 211, 153, 0.11)");
+
+        // Floating data nodes with subtle links
+        const px = (mouseX - 0.5) * 20;
+        const py = (mouseY - 0.5) * 14;
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
+          n.x = (n.x + n.speed) % 1;
+          const x = n.x * w + px * (0.4 + (i % 3) * 0.25);
+          const y = n.y * h + Math.sin(phase + i) * 6 + py * 0.35;
+
+          ctx.beginPath();
+          ctx.arc(x, y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${n.color}, 0.45)`;
+          ctx.fill();
+
+          // Connect nearby nodes
+          for (let j = i + 1; j < nodes.length; j++) {
+            const m = nodes[j];
+            const mx = m.x * w + px * (0.4 + (j % 3) * 0.25);
+            const my = m.y * h + Math.sin(phase + j) * 6 + py * 0.35;
+            const dx = x - mx;
+            const dy = y - my;
+            const distSq = dx * dx + dy * dy;
+            if (distSq < 13500) {
+              const alpha = (1 - distSq / 13500) * 0.11;
+              ctx.beginPath();
+              ctx.moveTo(x, y);
+              ctx.lineTo(mx, my);
+              ctx.strokeStyle = `rgba(56, 213, 231, ${alpha.toFixed(3)})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        mouseX = e.clientX / Math.max(1, window.innerWidth);
+        mouseY = e.clientY / Math.max(1, window.innerHeight);
+      },
+      { passive: true }
+    );
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          visible = entries[0].isIntersecting;
+          if (visible && !rafId) tick();
+        },
+        { threshold: 0.02 }
+      );
+      io.observe(canvas);
+    }
+    tick();
+  }
+
+  /* ---------- 3C. 3D Perspective Tilt on Pricing & Coupon Cards ---------- */
+  function init3DTilt() {
+    if (prefersReduced || window.innerWidth < 900) return;
+    const sel = "[data-tilt-card], .coupon-card";
+
+    document.addEventListener(
+      "pointermove",
+      (e) => {
+        const card = e.target && e.target.closest ? e.target.closest(sel) : null;
+        if (!card) return;
+        const r = card.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width - 0.5;
+        const ny = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(900px) rotateX(${(-ny * 5.5).toFixed(2)}deg) rotateY(${(nx * 6.5).toFixed(2)}deg) translateY(-3px)`;
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "pointerout",
+      (e) => {
+        const card = e.target && e.target.closest ? e.target.closest(sel) : null;
+        if (!card) return;
+        if (!card.contains(e.relatedTarget)) {
+          card.style.transform = "";
+        }
+      },
+      { passive: true }
+    );
+  }
+
+  /* ---------- 3D. Kinetic Price Roll-Down & Micro-Sparkle Burst ---------- */
+  function initPriceRollAndSparkles() {
+    window.addEventListener("kz:price-roll", () => {
+      if (prefersReduced) return;
+      const nodes = document.querySelectorAll("[data-roll-price]");
+      nodes.forEach((el) => {
+        const target = parseFloat(el.getAttribute("data-roll-price") || "0");
+        const orig = parseFloat(el.getAttribute("data-orig-price") || String(target));
+        const start = target < orig ? orig : target * 0.82;
+        if (typeof window.gsap !== "undefined") {
+          const obj = { val: start };
+          window.gsap.to(obj, {
+            val: target,
+            duration: 0.55,
+            ease: "power3.out",
+            onUpdate: () => {
+              el.textContent = "$" + obj.val.toFixed(2);
+            }
+          });
+          window.gsap.fromTo(
+            el,
+            { scale: 1.12 },
+            { scale: 1, duration: 0.45, ease: "back.out(2)", clearProps: "transform" }
+          );
+        }
+      });
+    });
+
+    window.addEventListener("kz:sparkle", (e) => {
+      if (prefersReduced) return;
+      const cx = (e.detail && e.detail.x) || window.innerWidth / 2;
+      const cy = (e.detail && e.detail.y) || window.innerHeight / 2;
+      const colors = ["#38D5E7", "#F3BE62", "#34D399", "#FFFFFF"];
+
+      for (let i = 0; i < 14; i++) {
+        const dot = document.createElement("span");
+        dot.className = "kz-sparkle";
+        dot.style.left = cx + "px";
+        dot.style.top = cy + "px";
+        dot.style.background = colors[i % colors.length];
+        document.body.appendChild(dot);
+
+        const angle = (Math.PI * 2 * i) / 14 + (Math.random() - 0.5) * 0.4;
+        const dist = 32 + Math.random() * 44;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist - 12;
+
+        requestAnimationFrame(() => {
+          dot.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(0)`;
+          dot.style.opacity = "0";
+        });
+
+        setTimeout(() => dot.remove(), 620);
+      }
+    });
+  }
+
+  /* ---------- 4. GSAP Scroll Craft Choreography (with Safe Fallback) ---------- */
+  function initScrollCraft() {
+    if (prefersReduced) return;
+
+    const hasGSAP = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
+
+    if (hasGSAP) {
+      const gsap = window.gsap;
+      const ScrollTrigger = window.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Entrance Timeline (above the fold)
+      const heroEls = document.querySelectorAll(".hero-eyebrow, .hero h1, .hero-desc, .hero-actions, .hero-meta");
+      if (heroEls.length) {
+        gsap.from(heroEls, {
+          y: 24,
+          opacity: 0,
+          duration: 0.72,
+          stagger: 0.08,
+          ease: "power3.out",
+          clearProps: "transform,opacity"
+        });
+      }
+
+      const heroPanel = document.querySelector(".hero-panel");
+      if (heroPanel) {
+        gsap.from(heroPanel, {
+          y: 28,
+          scale: 0.97,
+          opacity: 0,
+          duration: 0.85,
+          delay: 0.16,
+          ease: "power3.out",
+          clearProps: "transform,opacity"
+        });
+      }
+
+      // Dimensional Parallax on Aurora Ambient Orbs
+      document.querySelectorAll(".kz-aurora").forEach((orb) => {
+        gsap.to(orb, {
+          yPercent: 18,
+          ease: "none",
+          scrollTrigger: {
+            trigger: orb.parentElement,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.8
+          }
+        });
+      });
+
+      // Section Head Reveals
+      document.querySelectorAll(".section-head").forEach((head) => {
+        gsap.from(head.children, {
+          y: 22,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.08,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: head,
+            start: "top 86%",
+            once: true
+          }
+        });
+      });
+
+      // Cards & Clocks Stagger per Section
+      document.querySelectorAll(".calc-grid, .clock-strip, .coupon-grid").forEach((grid) => {
+        const items = grid.children;
+        if (!items.length) return;
+        gsap.from(items, {
+          y: 26,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.09,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: grid,
+            start: "top 86%",
+            once: true
+          }
+        });
+      });
+
+      // Aurora Peak Banner Reveal
+      document.querySelectorAll(".aurora-banner").forEach((banner) => {
+        gsap.from(banner, {
+          y: 34,
+          scale: 0.98,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          clearProps: "transform,opacity",
+          scrollTrigger: {
+            trigger: banner,
+            start: "top 85%",
+            once: true
+          }
+        });
+      });
+
+      // Smooth re-animation when switching Firm Tabs or Coupon Filters
+      window.addEventListener("kz:firm-rendered", () => {
+        const panel = document.querySelector("#firmExplorerContent .card");
+        if (!panel) return;
+        gsap.fromTo(
+          panel,
+          { y: 14, opacity: 0.35 },
+          { y: 0, opacity: 1, duration: 0.42, ease: "power2.out", clearProps: "transform,opacity" }
+        );
+        const tiles = panel.querySelectorAll(".meta-tile, .trap-card");
+        if (tiles.length) {
+          gsap.fromTo(
+            tiles,
+            { y: 12, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.38, stagger: 0.04, ease: "power2.out", clearProps: "transform,opacity" }
+          );
+        }
+      });
+
+      window.addEventListener("kz:coupons-rendered", () => {
+        const cards = document.querySelectorAll("#couponsPageGrid .coupon-card");
+        if (!cards.length) return;
+        gsap.fromTo(
+          cards,
+          { y: 16, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.38, stagger: 0.05, ease: "power2.out", clearProps: "transform,opacity" }
+        );
+      });
+    } else if ("IntersectionObserver" in window) {
+      // Lightweight Offline Fallback
+      const targets = document.querySelectorAll(".section, .aurora-banner");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add("kz-in-view");
+              io.unobserve(en.target);
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+      targets.forEach((el) => io.observe(el));
+    }
+  }
+
+  /* ---------- Boot ---------- */
+  function bootAll() {
+    initScrollTelemetry();
+    initSpotlights();
+    initHeroFlowCanvas();
+    initDrawdownCanvas();
+    init3DTilt();
+    initPriceRollAndSparkles();
+    initScrollCraft();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootAll);
+  } else {
+    bootAll();
+  }
+})();
