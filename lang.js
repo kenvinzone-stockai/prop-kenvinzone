@@ -57,6 +57,12 @@
     "nav.ctaCoupon": "Hot Coupons",
     "nav.ctaAurora": "Explore Aurora V12.2",
 
+    // Ticker Marquee
+    "ticker.bx": "<span class=\"kz-ticker-dot\"></span><strong>BULENOX:</strong> Code <span class=\"mono\" style=\"color:var(--kz-gold)\">5BAAG</span> up to 89% OFF Option 1 (from $15.95) & 75% OFF Option 2 EOD",
+    "ticker.e2t": "<span class=\"kz-ticker-dot\" style=\"background:var(--kz-gold)\"></span><strong>EARN2TRADE BLACK WEEK:</strong> Code <span class=\"mono\" style=\"color:var(--kz-gold)\">BIGBF2026</span> up to 70% OFF (2 months) + discounted Resets",
+    "ticker.ts": "<span class=\"kz-ticker-dot\" style=\"background:var(--kz-green)\"></span><strong>TOPSTEP FRIENDSGIVING:</strong> Code <span class=\"mono\" style=\"color:var(--kz-green)\">KENVINZONE</span> 50% OFF first Combine (from $24.50)",
+    "ticker.au": "<span class=\"kz-ticker-dot\" style=\"background:var(--kz-cyan)\"></span><strong>AURORA V12.2:</strong> 1st/2nd Break + Entry/F-SL/TP 1R-2R system built for NQ, ES, GC prop evaluations",
+
     // Chapter Rail
     "rail.compare": "01 · Compare 3 Firms",
     "rail.rules": "02 · Rule Deep-Dive",
@@ -100,8 +106,8 @@
 
     // Section 3: Calculators
     "s3.kicker": "03 · Interactive Prop Trader Tools",
-    "s3.title": "Consistency Rule & True Evaluation Cost Calculators",
-    "s3.sub": "Stop eyeballing your math — plug in your numbers to verify consistency eligibility and real cost to funded.",
+    "s3.title": "Consistency, True Cost & Futures Position Size Calculators",
+    "s3.sub": "Stop eyeballing your math — plug in your numbers to verify consistency eligibility, real cost to funded, and exact Mini/Micro contract sizing.",
     "calc.consKicker": "Consistency Rule Calculator",
     "calc.consTitle": "Check Your Best-Day Profit Ratio",
     "calc.consFirmLabel": "Select firm rule",
@@ -118,14 +124,23 @@
     "calc.resets": "Expected Resets",
     "calc.resetPrice": "Fee per Reset ($)",
     "calc.activation": "Funded / Master Activation Fee ($)",
+    "pos.kicker": "Futures Position Size Calculator",
+    "pos.title": "Calculate Safe Mini / Micro Contracts by Risk $ & Stop Loss",
+    "pos.sub": "Essential for traders moving from Forex/CFD to CME Futures — never accidentally oversize a Mini contract again.",
+    "pos.instrument": "CME Futures Contract",
+    "pos.risk": "Max Risk per Trade ($)",
+    "pos.sl": "Stop Loss Distance",
+    "pos.unit": "SL Unit",
+    "pos.unitPoints": "Points",
+    "pos.unitTicks": "Ticks",
 
     // CME Clocks
     "clk.tsBadge": "TOPSTEP — EARLIEST CLOSE",
-    "clk.tsDesc": "VN Time (ICT): <strong>03:10 AM</strong> (Summer) • <strong>04:10 AM</strong> (Winter). Auto-flatten begins at 3:08 PM CT.",
+    "clk.tsDesc": "VN Time (UTC+7): <strong>03:10 AM</strong> (US CDT / Summer) • <strong>04:10 AM</strong> (US CST / Winter). Auto-flatten begins at 3:08 PM CT.",
     "clk.e2tBadge": "EARN2TRADE",
-    "clk.e2tDesc": "VN Time (ICT): <strong>03:50 AM</strong> (Summer) • <strong>04:50 AM</strong> (Winter). Next session opens at 5:00 PM CT.",
+    "clk.e2tDesc": "VN Time (UTC+7): <strong>03:50 AM</strong> (US CDT / Summer) • <strong>04:50 AM</strong> (US CST / Winter). Next session opens at 5:00 PM CT.",
     "clk.bxBadge": "BULENOX — LATEST CLOSE",
-    "clk.bxDesc": "VN Time (ICT): <strong>03:59 AM</strong> (Summer) • <strong>04:59 AM</strong> (Winter). Strictly no overnight holding.",
+    "clk.bxDesc": "VN Time (UTC+7): <strong>03:59 AM</strong> (US CDT / Summer) • <strong>04:59 AM</strong> (US CST / Winter). Strictly no overnight holding.",
 
     // Section 4: Hot Coupons
     "s4.kicker": "04 · Cut Your Evaluation Costs",
@@ -177,6 +192,7 @@
     // Footer
     "ft.main": "<strong style=\"color:var(--kz-strong)\">KENVINZONE PROP HUB</strong> · Futures prop firm rules comparison & live coupon hub for traders.",
     "ft.disclaimer": "Disclaimer: Prop firm rules (Bulenox, Earn2Trade, Topstep) may change anytime. Always verify live terms on the firm's official site before purchasing. Some links are Affiliate Links that help keep this hub free.",
+    "ft.dashboard": "Rules Dashboard",
     "ft.couponMain": "<strong style=\"color:var(--kz-strong)\">KENVINZONE COUPON HUB</strong> · Verified discount codes for Bulenox, Earn2Trade & Topstep.",
     "ft.back": "← Back to Rules Dashboard"
   };
@@ -214,6 +230,42 @@
       lblCopy: "Copy Trading:",
       lblAff: "Affiliate / Ref:",
       scalingHeading: "📈 Bảng Scaling Plan trên Topstep XFA (Mở khóa sau khi chốt ngày EOD)",
+      tcpScalingHeading: "📈 Lộ Trình Nâng Vốn Earn2Trade TCP (Tự động lên bậc khi đạt target & rút lãi)",
+      tcpScalingNote: "Từ 02/11/2026: Đã bỏ bảng Progression Ladder, hệ thống tự giới hạn hợp đồng cố định theo từng mốc vốn. Chỉ TCP50 và TCP100 mới lên được trần $400K.",
+      platformGuideHeading: "🖥️ Chọn Data Feed, Nền Tảng & Phí Giao Dịch (Live)",
+      lblDataFeed: "Nguồn dữ liệu (Data Feed):",
+      lblBestPick: "Gợi ý chọn nền tảng:",
+      lblCommEst: "Phí Commission tham khảo:",
+      lblLiveDataFee: "Phí Data khi lên Funded / Live:",
+      tblPlan: "Gói tài khoản",
+      tblListPrice: "Phí tháng (Gốc)",
+      tblMonthly: "Phí tháng",
+      tblTarget: "Mục tiêu lãi",
+      tblDrawdown: "Drawdown",
+      tblEodDrawdown: "EOD Drawdown",
+      tblMll: "Max Loss Limit (MLL)",
+      tblDll: "Daily Loss Limit",
+      tblMaxContracts: "Hợp đồng tối đa",
+      tblFixedContracts: "Hợp đồng cố định (Mới)",
+      tblCombineContracts: "Hợp đồng (Combine)",
+      tblMasterAct: "Phí kích hoạt Master",
+      tblLiveSimFee: "Phí LiveSim",
+      tblXfaAct: "Phí kích hoạt XFA",
+      tblSafetyReserve: "Safety Reserve",
+      tblPayoutCap3: "Trần rút 3 lần đầu",
+      tblMinProfitDay: "Lãi tối thiểu/ngày rút",
+      tblSplit80: "Ngưỡng chia 80/20",
+      tblMaxDay55: "Max 1 ngày (55%)",
+      tblResetFee: "Phí Reset",
+      posHint: "Nhập số tiền rủi ro tối đa ($) và khoảng dừng lỗ (Stop Loss) để tính khối lượng hợp đồng an toàn.",
+      posSpec: "Thông số {sym}: ${pt}/Point • ${tick}/Tick ({tpp} Ticks/Point)",
+      posRecommended: "Khối lượng khuyến nghị tối đa",
+      posContractsUnit: "hợp đồng",
+      posActualRisk: "Rủi ro thực tế với {qty} HĐ: <strong class=\"mono\" style=\"color:var(--kz-cyan)\">${actual}</strong> (SL {pts} pts = {ticks} ticks • ${perCt}/HĐ).",
+      posOversizeBadge: "⚠ VƯỢT RISK VỚI 1 HĐ",
+      posSafeBadge: "✓ AN TOÀN TRONG RISK",
+      posOversizeTip: "Ngay cả <strong>1 hợp đồng {sym}</strong> cũng rủi ro <strong class=\"mono\" style=\"color:var(--kz-rose)\">${perCt}</strong> (vượt mức ${risk}). Hãy chuyển sang mã Micro tương ứng (<strong>{micro}</strong>) hoặc thu gọn Stop Loss!",
+      posOversizeTipMicro: "1 hợp đồng <strong>{sym}</strong> rủi ro <strong class=\"mono\" style=\"color:var(--kz-rose)\">${perCt}</strong> (vượt mức ${risk}). Hãy tăng mức Risk cho phép hoặc thu gọn khoảng Stop Loss.",
       consHint: "Nhập lợi nhuận ngày lớn nhất và tổng lợi nhuận để tính tự động.",
       consSub: "Tỷ trọng ngày lớn nhất / Tổng lãi ({name})",
       consPassBadge: "✓ ĐẠT CHUẨN RULE",
@@ -303,6 +355,42 @@
       lblCopy: "Copy Trading:",
       lblAff: "Affiliate / Referral:",
       scalingHeading: "📈 Topstep XFA Scaling Plan (Unlocks next session after EOD)",
+      tcpScalingHeading: "📈 Earn2Trade TCP Capital Scaling Roadmap (Auto-upgrades upon target & payout)",
+      tcpScalingNote: "Post-Nov 2, 2026: Progression Ladder retired — system enforces fixed contract limits per tier. Only TCP50 and TCP100 can scale up to the $400K ceiling.",
+      platformGuideHeading: "🖥️ Data Feed, Platform Picks & Live Trading Fees",
+      lblDataFeed: "Market Data Feed:",
+      lblBestPick: "Recommended Platform:",
+      lblCommEst: "Est. Round-Turn Commission:",
+      lblLiveDataFee: "Funded / Live Data Fees:",
+      tblPlan: "Account Size",
+      tblListPrice: "Monthly (List)",
+      tblMonthly: "Monthly Fee",
+      tblTarget: "Profit Target",
+      tblDrawdown: "Drawdown",
+      tblEodDrawdown: "EOD Drawdown",
+      tblMll: "Max Loss Limit (MLL)",
+      tblDll: "Daily Loss Limit",
+      tblMaxContracts: "Max Contracts",
+      tblFixedContracts: "Fixed Contracts (New)",
+      tblCombineContracts: "Contracts (Combine)",
+      tblMasterAct: "Master Activation",
+      tblLiveSimFee: "LiveSim Fee",
+      tblXfaAct: "XFA Activation",
+      tblSafetyReserve: "Safety Reserve",
+      tblPayoutCap3: "First 3 Payout Caps",
+      tblMinProfitDay: "Min Profit/Payout Day",
+      tblSplit80: "80/20 Split Threshold",
+      tblMaxDay55: "Max 1-Day (55%)",
+      tblResetFee: "Reset Fee",
+      posHint: "Enter your max risk ($) and Stop Loss distance to calculate safe CME Futures contract size.",
+      posSpec: "{sym} Spec: ${pt}/Point • ${tick}/Tick ({tpp} Ticks/Point)",
+      posRecommended: "Recommended Max Position Size",
+      posContractsUnit: "contracts",
+      posActualRisk: "Actual risk at {qty} ct(s): <strong class=\"mono\" style=\"color:var(--kz-cyan)\">${actual}</strong> (SL {pts} pts = {ticks} ticks • ${perCt}/ct).",
+      posOversizeBadge: "⚠ 1 CONTRACT EXCEEDS RISK",
+      posSafeBadge: "✓ SAFE WITHIN RISK",
+      posOversizeTip: "Even <strong>1 contract of {sym}</strong> risks <strong class=\"mono\" style=\"color:var(--kz-rose)\">${perCt}</strong> (exceeds your ${risk} limit). Switch to the Micro contract (<strong>{micro}</strong>) or tighten your Stop Loss!",
+      posOversizeTipMicro: "1 contract of <strong>{sym}</strong> risks <strong class=\"mono\" style=\"color:var(--kz-rose)\">${perCt}</strong> (exceeds your ${risk} limit). Increase your risk budget or tighten your Stop Loss.",
       consHint: "Enter your best single day profit and total net profit to calculate.",
       consSub: "Best Day Share of Total Profit ({name})",
       consPassBadge: "✓ RULE PASSED",
@@ -494,11 +582,27 @@
         tr[k].forEach((p) => {
           p.unit = p.unit.replace("/tháng", "/mo").replace("(1 lần)", "(one-time)");
           p.target = p.target.replace("Vào thẳng", "Direct");
-          p.dll = p.dll.replace("Không có", "None");
+          p.dll = p.dll.replace("Không có (Ngoại lệ $25K)", "None ($25K exception)").replace("Không có", "None");
           p.activation = p.activation.replace("(Gộp gói)", "(Included)");
         });
       });
     });
+    bx.modes[0].label = "Option 1 — Intraday Trailing (No Scaling, No DLL)";
+    bx.modes[0].note = "Built for fast scalpers who take quick profits and want zero Daily Loss Limit or contract scaling restrictions.";
+    bx.modes[1].label = "Option 2 — EOD Drawdown (With Soft DLL & Scaling)";
+    bx.modes[1].note = "Drawdown updates once at end of day on realized balance. Hitting DLL only pauses trading for the rest of the day (no blowup).";
+    bx.modes.forEach((m) => {
+      m.plans.forEach((p) => {
+        p.listPrice = p.listPrice.replace("/tháng", "/mo");
+        p.dll = p.dll.replace("Không có", "None");
+      });
+    });
+    bx.platformGuide = {
+      dataFeed: "Rithmic (low-latency CME data feed compatible with NinjaTrader, Quantower, Bookmap, Sierra Chart, ATAS, Jigsaw).",
+      bestPick: "NinjaTrader 8 or Quantower via Rithmic (top choice for scalpers & multi-account copy trading).",
+      commissionEst: "Approx. ~$4.00–$5.00 round-turn (Mini) • ~$1.20–$1.50 round-turn (Micro) depending on CME contract & clearing.",
+      liveDataFee: "Non-Professional data is free during evaluation. Master/Live accounts use Non-Pro Rithmic/CME bundles (never select Professional or you'll pay $140+/mo)."
+    };
 
     // Earn2Trade EN
     const e2 = en.firms.earn2trade;
@@ -549,11 +653,58 @@
         p.resetNote = (p.resetNote || "").replace("Tặng Reset khi Rebill", "Free Reset on Rebill").replace("Reset chuẩn", "Standard Reset");
       });
     });
+    e2.modes[0].label = "Trader Career Path® (TCP) — Scales to $200K / $400K";
+    e2.modes[0].note = "Pass once, withdraw profits, and automatically upgrade to larger funded tiers. Includes 1 Free Reset per monthly rebill.";
+    e2.modes[1].label = "The Gauntlet Mini™ (GAU) — Fixed-Size Funded Account";
+    e2.modes[1].note = "Go directly into a fixed-size funded account ($50K–$200K) without TCP tier scaling. Same EOD Drawdown & 30% eval consistency rules.";
+    e2.modes.forEach((m) => {
+      m.plans.forEach((p) => {
+        p.listPrice = p.listPrice.replace("/tháng", "/mo");
+        p.activation = p.activation.replace("trừ rút đầu", "deducted 1st payout");
+        p.minProfitDay = p.minProfitDay.replace("/ngày", "/day");
+      });
+    });
+    e2.tcpScaling = [
+      {
+        tier: "TCP25 ($25K → $200K)",
+        levels: [
+          "Start $25K: Max 2 Minis (20 Micros)",
+          "Upgrade $50K: Max 4 Minis (40 Micros)",
+          "Upgrade $100K: Max 8 Minis (80 Micros)",
+          "Max Ceiling $200K: Max 15 Minis (150 Micros)"
+        ]
+      },
+      {
+        tier: "TCP50 ($50K → $400K)",
+        levels: [
+          "Start $50K: Max 4 Minis (40 Micros)",
+          "Upgrade $100K: Max 8 Minis (80 Micros)",
+          "Upgrade $200K: Max 15 Minis (150 Micros)",
+          "Max Ceiling $400K: 20 Minis (fixed 60/40 split)"
+        ]
+      },
+      {
+        tier: "TCP100 ($100K → $400K)",
+        levels: [
+          "Start $100K: Max 8 Minis (80 Micros)",
+          "Upgrade $150K: Max 12 Minis (120 Micros)",
+          "Upgrade $200K: Max 15 Minis (150 Micros)",
+          "Max Ceiling $400K: 20 Minis (fixed 60/40 split)"
+        ]
+      }
+    ];
+    e2.platformGuide = {
+      dataFeed: "Supports both Rithmic and dxFeed (institutional-grade feed with deep MBO order book data).",
+      bestPick: "dxFeed × ATAS or dxFeed × DeepCharts (includes FREE ATAS / DeepCharts order flow & footprint license throughout eval & LiveSim!). Also supports NinjaTrader & Tradovate.",
+      commissionEst: "Approx. ~$4.20–$4.80 round-turn (Mini) • ~$1.10–$1.50 round-turn (Micro) depending on CME product & partner brokerage.",
+      liveDataFee: "Non-Pro data is included during evaluation. LiveSim data is covered under the $139 activation fee (deducted from 1st payout). Moving to Live brokerage incurs standard monthly CME data fees."
+    };
 
     // Topstep EN
     const ts = en.firms.topstep;
     ts.tagline = "#1 Global Futures Prop Firm • From $49/mo • $0 Activation Path • TopstepX Built-In";
     ts.badgeText = "MOST POPULAR FUTURES PROP FIRM";
+    ts.platforms = ["TopstepX (Built-in TradingView & Copy Trader)", "Tradovate", "Quantower (by path)"];
     ts.closeTimeVN_Summer = "03:10 AM ICT (Summer) / 04:10 AM (Winter)";
     ts.newsTrading = "Allowed (stay strictly within MLL and XFA Scaling limits)";
     ts.copyTrading = "Allowed across up to 5 XFAs via native TopstepX copier (no cross-account hedging)";
@@ -596,7 +747,7 @@
     ts.topstepPricingMatrix.tracks[0].label = "No Activation Fee ($0 XFA Activation)";
     ts.topstepPricingMatrix.tracks[0].subtitle = "Skip the $149 XFA activation fee • Turn ON Responsible Trading Advantage to save up to $30/mo + DOUBLE Payout Caps!";
     ts.topstepPricingMatrix.tracks[1].label = "Standard Path (From $49/mo + $149 Activation)";
-    ts.topstepPricingMatrix.tracks[1].subtitle = "Lowest monthly cost for traders still calibrating • Includes Monthly Reset Credit on Rebill.";
+    ts.topstepPricingMatrix.tracks[1].subtitle = "Lowest monthly cost for traders still calibrating • Note: Turning RTA ON keeps Standard monthly prices unchanged, adding DLL & 2x Payout Caps (-$10→$30/mo discount applies to NAF Path).";
     ts.topstepPricingMatrix.tracks.forEach((tr) => {
       ["rtaOff", "rtaOn"].forEach((k) => {
         tr[k].forEach((p) => {
@@ -605,6 +756,23 @@
         });
       });
     });
+    ts.modes[0].label = "Standard Path — Low Monthly ($49–$199) + $149 Activation";
+    ts.modes[0].note = "Best if you're new to Topstep or expect to take >2 months / multiple resets to pass the Combine.";
+    ts.modes[1].label = "No Activation Fee (NAF) Path — Waives $149 XFA Fee";
+    ts.modes[1].note = "Lowest total cost if you pass in 1–2 attempts (e.g., $50K total is $95 instead of $49 + $149 = $198!).";
+    ts.modes.forEach((m) => {
+      m.plans.forEach((p) => {
+        p.listPrice = p.listPrice.replace("/tháng", "/mo");
+        p.dll = p.dll.replace("Tùy chọn", "Optional");
+        p.activation = p.activation.replace("(1 lần)", "(one-time)").replace("(Miễn phí)", "(Free)");
+      });
+    });
+    ts.platformGuide = {
+      dataFeed: "TopstepX (ProjectX — native browser TradingView charts with zero software installation or Rithmic setup).",
+      bestPick: "TopstepX — easiest onboarding for traders switching from Forex/Crypto, with built-in 5-XFA Copy Trader, auto DLL lock, and 1-click Flatten.",
+      commissionEst: "Highly competitive on TopstepX: ~$2.80 round-turn (Mini ES/NQ) • ~$0.74 round-turn (Micro MES/MNQ).",
+      liveDataFee: "Free data during Combine & XFA. Upgrading to Live Funded Account (LFA) incurs standard CME Non-Pro data bundle (~$135/mo)."
+    };
 
     return en;
   }

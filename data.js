@@ -11,7 +11,7 @@ window.KZ_PROP_DATA = {
   site: {
     brandName: "KENVINZONE",
     subBrand: "PROP HUB",
-    lastUpdated: "21/11/2026",
+    lastUpdated: "22/11/2026",
     auroraUrl: "https://aurora.kenvinzone.com/",
     mainSiteUrl: "https://kenvinzone.com/",
     telegramUrl: "https://t.me/kenvinzone", // Thay bằng link nhóm Telegram cộng đồng của bạn
@@ -216,7 +216,7 @@ window.KZ_PROP_DATA = {
               { size: "$150,000", price: 788, unit: " (1 lần)", target: "Vào thẳng", drawdown: "$5,500 (Trailing)", dll: "Không có", contracts: "15 Minis", activation: "$0", discounts: { "5BAAG": 40, "LTRRR": 0, "UREHV": 0 } }
             ],
             opt2: [
-              { size: "$25,000", price: 338, unit: " (1 lần)", target: "Vào thẳng", drawdown: "$1,000 (EOD)", dll: "Không có", contracts: "2 Minis", activation: "$0", discounts: { "5BAAG": 40, "LTRRR": 0, "UREHV": 0 } },
+              { size: "$25,000", price: 338, unit: " (1 lần)", target: "Vào thẳng", drawdown: "$1,000 (EOD)", dll: "Không có (Ngoại lệ $25K)", contracts: "2 Minis", activation: "$0", discounts: { "5BAAG": 40, "LTRRR": 0, "UREHV": 0 } },
               { size: "$50,000", price: 488, unit: " (1 lần)", target: "Vào thẳng", drawdown: "$2,000 (EOD)", dll: "$1,200 (Soft)", contracts: "4 Minis", activation: "$0", popular: true, discounts: { "5BAAG": 40, "LTRRR": 0, "UREHV": 0 } },
               { size: "$100,000", price: 648, unit: " (1 lần)", target: "Vào thẳng", drawdown: "$4,000 (EOD)", dll: "$2,500 (Soft)", contracts: "8 Minis", activation: "$0", discounts: { "5BAAG": 40, "LTRRR": 0, "UREHV": 0 } },
               { size: "$150,000", price: 788, unit: " (1 lần)", target: "Vào thẳng", drawdown: "$5,500 (EOD)", dll: "$3,300 (Soft)", contracts: "12 Minis", activation: "$0", discounts: { "5BAAG": 40, "LTRRR": 0, "UREHV": 0 } }
@@ -253,7 +253,13 @@ window.KZ_PROP_DATA = {
         "Giới hạn 3 lần rút đầu: $1,000 (25K) • $1,500 (50K) • $1,750 (100K) • $2,000 (150K). Từ lần rút thứ 4 trở đi gỡ bỏ trần rút.",
         "Drawdown trên Master Account thường dừng kéo (lock) khi chạm mức Số dư ban đầu + $100.",
         "Consistency Rule: 40% trong kỳ yêu cầu rút tiền."
-      ]
+      ],
+      platformGuide: {
+        dataFeed: "Rithmic (dữ liệu tốc độ cao, tương thích sâu với NinjaTrader, Quantower, Bookmap, Sierra Chart, ATAS, Jigsaw).",
+        bestPick: "NinjaTrader 8 hoặc Quantower qua Rithmic (phổ biến nhất cho scalper & copy trade nhiều tài khoản).",
+        commissionEst: "Tham khảo ~$4.00–$5.00/vòng (Mini) • ~$1.20–$1.50/vòng (Micro) tùy sàn CME & cấu hình clearing.",
+        liveDataFee: "Miễn phí data Non-Professional trong vòng thi. Khi lên Master / Live áp dụng phí dữ liệu Rithmic/CME theo gói Non-Pro (tránh chọn nhầm Professional vì phí $140+/tháng)."
+      }
     },
 
     earn2trade: {
@@ -356,12 +362,47 @@ window.KZ_PROP_DATA = {
           ]
         }
       ],
+      tcpScaling: [
+        {
+          tier: "TCP25 ($25K → $200K)",
+          levels: [
+            "Khởi điểm $25K: Tối đa 2 Minis (20 Micros)",
+            "Nâng bậc $50K: Tối đa 4 Minis (40 Micros)",
+            "Nâng bậc $100K: Tối đa 8 Minis (80 Micros)",
+            "Trần tối đa $200K: Tối đa 15 Minis (150 Micros)"
+          ]
+        },
+        {
+          tier: "TCP50 ($50K → $400K)",
+          levels: [
+            "Khởi điểm $50K: Tối đa 4 Minis (40 Micros)",
+            "Nâng bậc $100K: Tối đa 8 Minis (80 Micros)",
+            "Nâng bậc $200K: Tối đa 15 Minis (150 Micros)",
+            "Trần tối đa $400K: 20 Minis (chia 60/40 cố định)"
+          ]
+        },
+        {
+          tier: "TCP100 ($100K → $400K)",
+          levels: [
+            "Khởi điểm $100K: Tối đa 8 Minis (80 Micros)",
+            "Nâng bậc $150K: Tối đa 12 Minis (120 Micros)",
+            "Nâng bậc $200K: Tối đa 15 Minis (150 Micros)",
+            "Trần tối đa $400K: 20 Minis (chia 60/40 cố định)"
+          ]
+        }
+      ],
       payoutDetails: [
         "Phí kích hoạt LiveSim $139 KHÔNG cần đóng trước — được trừ thẳng vào lần rút lợi nhuận đầu tiên.",
         "Xử lý rút tiền hàng tuần (gửi yêu cầu trước 2:00 PM CT thứ Sáu, chi trả qua Rise và các cổng quốc tế).",
         "Yêu cầu 5 ngày có lãi đạt ngưỡng tối thiểu cho mỗi chu kỳ rút (luật áp dụng từ 02/11/2026).",
         "Chuyển từ LiveSim lên Live (tiền thật) sẽ chịu phí data sàn CME hàng tháng theo quy định sàn."
-      ]
+      ],
+      platformGuide: {
+        dataFeed: "Hỗ trợ cả Rithmic và dxFeed (chuẩn tổ chức, độ sâu sổ lệnh MBO cực mượt).",
+        bestPick: "Gói dxFeed × ATAS hoặc dxFeed × DeepCharts (được MIỄN PHÍ bản quyền phần mềm phân tích Order Flow / Footprint đắt tiền suốt vòng thi & LiveSim!). Hoặc NinjaTrader / Tradovate nếu quen dùng.",
+        commissionEst: "Tham khảo ~$4.20–$4.80/vòng (Mini) • ~$1.10–$1.50/vòng (Micro) tùy sàn CME & đối tác brokerage.",
+        liveDataFee: "Vòng thi miễn phí data Non-Pro. Giai đoạn LiveSim gộp trong phí kích hoạt $139 (trừ vào lần rút đầu). Chuyển lên Live thật tính phí data sàn CME (~$140+/tháng nếu là Professional, Non-Pro theo biểu phí CME)."
+      }
     },
 
     topstep: {
@@ -436,7 +477,7 @@ window.KZ_PROP_DATA = {
           {
             id: "standard",
             label: "Standard Path (Phí tháng từ $49 + $149 kích hoạt)",
-            subtitle: "Tối ưu cho người mới luyện tay • Phí tháng thấp nhất ($49/$99/$199) • Tặng Monthly Reset Credit khi Rebill.",
+            subtitle: "Tối ưu cho người mới luyện tay • Phí tháng thấp nhất ($49/$99/$199) • Lưu ý: Bật RTA ở gói Standard giữ nguyên giá tháng, chỉ kích hoạt thêm DLL & X2 Trần Rút (giảm -$10→$30/tháng chỉ áp dụng cho gói NAF).",
             rtaOff: [
               { size: "$50K Combine", price: 49, unit: "/tháng", target: "$3,000", drawdown: "$2,000 (EOD MLL)", dll: "Không bắt buộc", contracts: "5 Minis / 50 Micros", activation: "$149", resetFee: "$49", discounts: { "KENVINZONE": 50 } },
               { size: "$100K Combine", price: 99, unit: "/tháng", target: "$6,000", drawdown: "$3,000 (EOD MLL)", dll: "Không bắt buộc", contracts: "10 Minis / 100 Micros", activation: "$149", resetFee: "$99", popular: true, discounts: { "KENVINZONE": 50 } },
@@ -482,7 +523,13 @@ window.KZ_PROP_DATA = {
         "Nhánh XFA Standard Path (5 ngày lãi ≥ $150): Trần rút $2,000 (50K) • $3,000 (100K) • $5,000 (150K).",
         "Nhánh XFA Consistency Path (3 ngày + 40% Consistency): Trần rút $3,000 (50K) • $4,000 (100K) • $6,000 (150K).",
         "Phí rút tiền: ACH/Wire mất $30; các cổng như Wise / Aeropay thường được miễn phí từ Topstep. Lên Live Funded Account (LFA) sẽ bỏ trần rút hoàn toàn."
-      ]
+      ],
+      platformGuide: {
+        dataFeed: "TopstepX (ProjectX / tích hợp trực tiếp biểu đồ TradingView trên trình duyệt, không cần cài phần mềm hay cấu hình Rithmic phức tạp).",
+        bestPick: "TopstepX — dễ làm quen nhất cho người mới từ Forex/Crypto sang, có sẵn Copy Trader nội bộ (tối đa 5 XFA), khóa DLL tự động & nút Flatten 1 chạm.",
+        commissionEst: "Rất cạnh tranh trên TopstepX: ~$2.80/vòng (Mini ES/NQ) • ~$0.74/vòng (Micro MES/MNQ).",
+        liveDataFee: "Miễn phí data trong suốt Combine & XFA. Khi nâng cấp lên Live Funded Account (LFA), áp dụng phí data gói CME (~$135/tháng cho Non-Professional)."
+      }
     }
   }
 };

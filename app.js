@@ -35,9 +35,16 @@
     const btn = document.getElementById("menuToggle");
     const nav = document.getElementById("mainNav");
     if (!btn || !nav) return;
-    btn.addEventListener("click", () => nav.classList.toggle("open"));
+    btn.setAttribute("aria-expanded", "false");
+    btn.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(isOpen));
+    });
     nav.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", () => nav.classList.remove("open"));
+      a.addEventListener("click", () => {
+        nav.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
     });
   }
 
@@ -437,15 +444,15 @@
     let bodyRows = "";
     if (firm.id === "bulenox") {
       headers = `
-        <th>Gói tài khoản</th>
-        <th>Phí tháng (Gốc)</th>
-        <th>Mục tiêu lãi</th>
-        <th>Drawdown</th>
-        <th>Daily Loss Limit</th>
-        <th>Hợp đồng tối đa</th>
-        <th>Phí kích hoạt Master</th>
-        <th>Safety Reserve</th>
-        <th>Trần rút 3 lần đầu</th>
+        <th>${T("tblPlan")}</th>
+        <th>${T("tblListPrice")}</th>
+        <th>${T("tblTarget")}</th>
+        <th>${T("tblDrawdown")}</th>
+        <th>${T("tblDll")}</th>
+        <th>${T("tblMaxContracts")}</th>
+        <th>${T("tblMasterAct")}</th>
+        <th>${T("tblSafetyReserve")}</th>
+        <th>${T("tblPayoutCap3")}</th>
       `;
       bodyRows = mode.plans
         .map(
@@ -466,15 +473,15 @@
         .join("");
     } else if (firm.id === "earn2trade") {
       headers = `
-        <th>Gói tài khoản</th>
-        <th>Phí tháng (Gốc)</th>
-        <th>Mục tiêu lãi</th>
-        <th>EOD Drawdown</th>
-        <th>Daily Loss Limit</th>
-        <th>Hợp đồng cố định (Mới)</th>
-        <th>Phí LiveSim</th>
-        <th>Lãi tối thiểu/ngày rút</th>
-        <th>Ngưỡng chia 80/20</th>
+        <th>${T("tblPlan")}</th>
+        <th>${T("tblListPrice")}</th>
+        <th>${T("tblTarget")}</th>
+        <th>${T("tblEodDrawdown")}</th>
+        <th>${T("tblDll")}</th>
+        <th>${T("tblFixedContracts")}</th>
+        <th>${T("tblLiveSimFee")}</th>
+        <th>${T("tblMinProfitDay")}</th>
+        <th>${T("tblSplit80")}</th>
       `;
       bodyRows = mode.plans
         .map(
@@ -495,14 +502,14 @@
         .join("");
     } else {
       headers = `
-        <th>Gói tài khoản</th>
-        <th>Phí tháng</th>
-        <th>Mục tiêu lãi</th>
-        <th>Max Loss Limit (MLL)</th>
-        <th>Max 1 ngày (55%)</th>
-        <th>Hợp đồng (Combine)</th>
-        <th>Phí kích hoạt XFA</th>
-        <th>Phí Reset</th>
+        <th>${T("tblPlan")}</th>
+        <th>${T("tblMonthly")}</th>
+        <th>${T("tblTarget")}</th>
+        <th>${T("tblMll")}</th>
+        <th>${T("tblMaxDay55")}</th>
+        <th>${T("tblCombineContracts")}</th>
+        <th>${T("tblXfaAct")}</th>
+        <th>${T("tblResetFee")}</th>
       `;
       bodyRows = mode.plans
         .map(
@@ -540,6 +547,39 @@
         </div>
       </div>
     `
+      : firm.tcpScaling
+        ? `
+      <div style="margin-top:22px">
+        <h4 style="margin:0 0 4px;font-size:15px;color:var(--kz-strong)">${T("tcpScalingHeading")}</h4>
+        <p style="margin:0 0 10px;font-size:12.5px;color:var(--kz-muted)">💡 ${T("tcpScalingNote")}</p>
+        <div class="scaling-grid">
+          ${firm.tcpScaling
+            .map(
+              (s) => `
+            <div class="scaling-box">
+              <h5 class="mono" style="color:var(--kz-gold)">${s.tier}</h5>
+              <ul>${s.levels.map((l) => `<li>${l}</li>`).join("")}</ul>
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      </div>
+    `
+        : "";
+
+    const platformGuideHtml = firm.platformGuide
+      ? `
+        <div class="meta-tile platform-guide-box" style="padding:18px;margin-top:16px">
+          <div class="meta-tile-label" style="color:var(--kz-gold)">${T("platformGuideHeading")}</div>
+          <div class="platform-guide-grid">
+            <div class="pg-item"><strong>${T("lblDataFeed")}</strong> <span>${firm.platformGuide.dataFeed}</span></div>
+            <div class="pg-item"><strong>${T("lblBestPick")}</strong> <span>${firm.platformGuide.bestPick}</span></div>
+            <div class="pg-item"><strong>${T("lblCommEst")}</strong> <span>${firm.platformGuide.commissionEst}</span></div>
+            <div class="pg-item"><strong>${T("lblLiveDataFee")}</strong> <span>${firm.platformGuide.liveDataFee}</span></div>
+          </div>
+        </div>
+      `
       : "";
 
     container.innerHTML = `
@@ -637,6 +677,7 @@
             </ul>
           </div>
         </div>
+        ${platformGuideHtml}
       </div>
     `;
 
@@ -766,6 +807,94 @@
     [monthlyIn, discountIn, resetsIn, resetPriceIn, activationIn].forEach((el) =>
       el.addEventListener("input", update)
     );
+    window.addEventListener("kz:lang-change", update);
+    update();
+  }
+
+  /* ---------- Index Page: Futures Position Size Calculator ---------- */
+  function initPositionSizeCalc() {
+    const instSel = document.getElementById("posInstrument");
+    const riskIn = document.getElementById("posRisk");
+    const slIn = document.getElementById("posSl");
+    const unitSel = document.getElementById("posUnit");
+    const specBadge = document.getElementById("posSpecBadge");
+    const outBox = document.getElementById("posCalcResult");
+    if (!instSel || !riskIn || !slIn || !unitSel || !outBox) return;
+
+    const SPECS = {
+      MNQ: { sym: "MNQ", pt: 2, tick: 0.5, tpp: 4, micro: null },
+      NQ: { sym: "NQ", pt: 20, tick: 5, tpp: 4, micro: "MNQ" },
+      MES: { sym: "MES", pt: 5, tick: 1.25, tpp: 4, micro: null },
+      ES: { sym: "ES", pt: 50, tick: 12.5, tpp: 4, micro: "MES" },
+      MGC: { sym: "MGC", pt: 10, tick: 1, tpp: 10, micro: null },
+      GC: { sym: "GC", pt: 100, tick: 10, tpp: 10, micro: "MGC" },
+      MCL: { sym: "MCL", pt: 100, tick: 1, tpp: 100, micro: null },
+      CL: { sym: "CL", pt: 1000, tick: 10, tpp: 100, micro: "MCL" },
+      MYM: { sym: "MYM", pt: 0.5, tick: 0.5, tpp: 1, micro: null },
+      YM: { sym: "YM", pt: 5, tick: 5, tpp: 1, micro: "MYM" }
+    };
+
+    function fmtNum(n) {
+      return Number.isInteger(n) ? n.toLocaleString() : Number(n.toFixed(2)).toLocaleString();
+    }
+
+    function update() {
+      const sp = SPECS[instSel.value] || SPECS.MNQ;
+      const risk = Math.max(0, Number(riskIn.value) || 0);
+      const slVal = Math.max(0, Number(slIn.value) || 0);
+      const unit = unitSel.value || "points";
+
+      if (specBadge) {
+        specBadge.textContent = T("posSpec", { sym: sp.sym, pt: sp.pt, tick: sp.tick, tpp: sp.tpp });
+      }
+
+      if (risk <= 0 || slVal <= 0) {
+        outBox.innerHTML = `<div style="color:var(--kz-muted);font-size:13.5px">${T("posHint")}</div>`;
+        return;
+      }
+
+      const slPoints = unit === "ticks" ? slVal / sp.tpp : slVal;
+      const slTicks = unit === "ticks" ? slVal : slVal * sp.tpp;
+      const riskPerContract = slPoints * sp.pt;
+      const qty = Math.floor(risk / riskPerContract);
+      const actualRisk = qty * riskPerContract;
+
+      if (qty < 1) {
+        const tipHtml = sp.micro
+          ? T("posOversizeTip", { sym: sp.sym, perCt: fmtNum(riskPerContract), risk: fmtNum(risk), micro: sp.micro })
+          : T("posOversizeTipMicro", { sym: sp.sym, perCt: fmtNum(riskPerContract), risk: fmtNum(risk) });
+        outBox.innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <span style="font-size:12.5px;color:var(--kz-muted)">${T("posRecommended")} (${sp.sym})</span>
+            <span class="tag tag-rose">${T("posOversizeBadge")}</span>
+          </div>
+          <div class="calc-result-big mono" style="color:var(--kz-rose)">0 ${T("posContractsUnit")}</div>
+          <div style="font-size:13px;color:var(--kz-text2)">${tipHtml}</div>
+        `;
+        return;
+      }
+
+      outBox.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <span style="font-size:12.5px;color:var(--kz-muted)">${T("posRecommended")} (${sp.sym})</span>
+          <span class="tag tag-green">${T("posSafeBadge")}</span>
+        </div>
+        <div class="calc-result-big mono" style="color:var(--kz-green)">${qty} <span style="font-size:16px;font-weight:700;color:var(--kz-strong)">${sp.sym} ${T("posContractsUnit")}</span></div>
+        <div style="font-size:13px;color:var(--kz-text2)">
+          ${T("posActualRisk", {
+            qty,
+            actual: fmtNum(actualRisk),
+            pts: fmtNum(slPoints),
+            ticks: fmtNum(slTicks),
+            perCt: fmtNum(riskPerContract)
+          })}
+        </div>
+      `;
+    }
+
+    [instSel, riskIn, slIn, unitSel].forEach((el) => el.addEventListener("input", update));
+    instSel.addEventListener("change", update);
+    unitSel.addEventListener("change", update);
     window.addEventListener("kz:lang-change", update);
     update();
   }
@@ -1002,6 +1131,7 @@
   initFirmTabs();
   initConsistencyCalc();
   initTrueCostCalc();
+  initPositionSizeCalc();
   renderCouponCards("homeHotCoupons", "all", true);
   initCouponsPage();
   syncCouponsFromSheet();
