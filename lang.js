@@ -288,7 +288,7 @@
     "gd.eRow6Gau": "Standard / promo reset fee applies",
     "gd.eRow7": "Payout Rule & 80/20 Split Threshold",
     "gd.eRow7Same": "5 winning days ≥$200/day • Withdraw ≥$3,000 for 80/20 (below $3K = 50/50)",
-    "gd.e2tVerdict": "<strong>💡 Earn2Trade Verdict:</strong> For only <strong>$10.50 more</strong> in Month 1 ($105 vs $94.50), <strong>TCP100 beats GAU100 across the board</strong> (+$1,000 higher LiveSim EOD withdrawal cap, auto-scaling to $400K, and Free Reset on rebill). Only pick <strong>Gauntlet Mini</strong> if you want to start directly at <strong>GAU150 ($150K)</strong> or <strong>GAU200 ($200K)</strong> where TCP has no direct entry.",
+    "gd.e2tVerdict": "<strong>💡 Earn2Trade Verdict:</strong> For only <strong>$10.50 more</strong> in Month 1 ($105 vs $94.50), <strong>TCP100 beats GAU100 across the board</strong> (+$1,000 higher LiveSim EOD withdrawal cap, auto-scaling to $400K, and Free Reset on rebill). You can hold up to <strong>3 LiveSim accounts</strong> (or 2 LiveSim + 1 Live — each TCP100 nets up to ~$4,661 at 80/20 after $139 activation), but note that <strong>Earn2Trade strictly prohibits Trade Copiers</strong> (trade each account manually). Only pick <strong>Gauntlet Mini</strong> for direct <strong>GAU150</strong> or <strong>GAU200</strong> entry.",
     "gd.bxVsBadge": "BULENOX · 3 ACCOUNT TRACKS",
     "gd.bxVsTitle": "Qualification vs Momentum vs Fast-Track: Payout & Consistency Breakdown",
     "gd.bxVsBtn": "View 5BAAG Deals (-89%) →",
@@ -378,7 +378,7 @@
     "gd.fq4": "4. How do LiveSim / XFA / Master Accounts differ from Live accounts? Are payouts real money?",
     "gd.fa4": "LiveSim (Earn2Trade), XFA (Topstep), and Master Account (Bulenox) run on simulated execution with live CME data, and YES — you withdraw REAL cash (80%–100% split). After consistent payouts, firms may transition you to a Live brokerage account (lifting payout caps while introducing monthly CME data fees).",
     "gd.fq5": "5. Are trading bots/EAs or multi-account Copy Trading allowed?",
-    "gd.fa5": "Personal copy trading across your own accounts is allowed at all 3 firms (TopstepX includes a built-in copier for up to 5 XFAs; Bulenox & Earn2Trade support Rithmic/NinjaTrader copiers). Cross-account hedging, latency arbitrage, and HFT are strictly banned.",
+    "gd.fa5": "Depends on the firm: Topstep (built-in TopstepX copier for up to 5 XFAs) and Bulenox (via Rithmic/NinjaTrader) allow personal copy trading across your own accounts. However, Earn2Trade STRICTLY PROHIBITS Trade Copiers across accounts — if you run 2–3 Earn2Trade accounts, you must trade each one manually and independently. Cross-account hedging, latency arbitrage, and HFT are banned at all 3 firms.",
     "gd.fq6": "6. Is news trading (CPI, NFP, FOMC) allowed?",
     "gd.fa6": "Unlike many Forex CFD prop firms that ban trading around news, Bulenox, Earn2Trade, and Topstep all ALLOW news trading. However, extreme slippage during news can instantly trigger Hard DLL or Intraday Trailing Drawdown, so size down or step aside if you're new.",
     "gd.fq7": "7. What happens if I forget to close a trade past the daily cutoff (3:10 / 3:50 / 3:59 PM CT)?",
@@ -808,8 +808,8 @@
     e2.badgeText = "MAJOR NOV 2, 2026 RULE UPDATE";
     e2.closeTimeVN_Summer = "03:50 AM ICT (Summer) / 04:50 AM (Winter)";
     e2.newsTrading = "Allowed in both Evaluation and Funded stages";
-    e2.copyTrading = "Supported on compatible personal Rithmic / Tradovate setups";
-    e2.maxAccounts = "Up to 5 concurrent accounts • TCP career path scales to $400K";
+    e2.copyTrading = "STRICTLY PROHIBITED — Trade Copiers across accounts are banned (both eval & LiveSim), as is cross-account hedging";
+    e2.maxAccounts = "Up to 5 concurrent Evals • Max 3 Funded (3 LiveSim or 2 LiveSim + 1 Live) • TCP scales to $400K";
     e2.resetFee = "1 Free Reset automatically on every monthly rebill • Mid-month reset $100–$130 (Black Week promo $65–$85)";
     e2.profitSplit = "Tiered 50/50 (below threshold) → 80/20 (at/above threshold) • $400K tier fixed 60/40";
     e2.affiliateInfo = "Official Partner/Affiliate program with tracking links & seasonal Black Week codes.";
@@ -822,7 +822,7 @@
       minDays: "No minimum days (30% rule → ≥4 days)",
       closeTime: "3:50 PM CT",
       news: "Allowed",
-      maxFunded: "5 Concurrent / Scales to $400K"
+      maxFunded: "3 LiveSim (or 2 LiveSim + 1 Live) • Scales to $400K"
     };
     e2.traps = [
       { title: "Trap #1: Daily Loss Limit (DLL) is a HARD BREACH!", detail: "Unlike Bulenox Option 2 (soft pause), Earn2Trade DLL includes open unrealized losses + commissions. Touching DLL for even 1 second fails the account immediately." },

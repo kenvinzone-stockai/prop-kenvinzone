@@ -275,8 +275,8 @@ window.KZ_PROP_DATA = {
       closeTimeVN_Summer: "03:50 sáng (giờ VN, mùa Hè CDT)",
       closeTimeVN_Winter: "04:50 sáng (giờ VN, mùa Đông CST)",
       newsTrading: "Cho phép giao dịch tin tức ở cả vòng thi và tài khoản cấp vốn",
-      copyTrading: "Hỗ trợ trên các nền tảng tương thích (Rithmic/Tradovate) cho tài khoản cá nhân",
-      maxAccounts: "Theo quy định tài khoản LiveSim / Live (tập trung lộ trình tăng vốn TCP lên $400K)",
+      copyTrading: "CẤM dùng phần mềm Copy Trade (Trade Copier) giữa các tài khoản (cả vòng thi lẫn LiveSim) và cấm Hedge chéo",
+      maxAccounts: "Tối đa 5 TK thi song song • Tối đa 3 TK Funded (3 LiveSim hoặc 2 LiveSim + 1 Live) • TCP scale $400K",
       resetFee: "Miễn phí 1 lần Reset mỗi chu kỳ gia hạn tháng (Rebill) • Reset giữa tháng tính phí tiêu chuẩn",
       profitSplit: "Bậc thang 50/50 (dưới ngưỡng) → 80/20 (đạt/vượt ngưỡng) • Bậc $400K cố định 60/40",
       consistencyRule: "30% ở vòng thi (1 ngày không vượt quá 30% tổng target) • GỠ BỎ hoàn toàn khi lên Funded",
@@ -290,7 +290,7 @@ window.KZ_PROP_DATA = {
         minDays: "Không yêu cầu tối thiểu (nhưng 30% rule → cần ≥4 ngày)",
         closeTime: "3:50 PM CT",
         news: "Cho phép",
-        maxFunded: "Lộ trình scale lên $400K"
+        maxFunded: "3 LiveSim (hoặc 2 LiveSim + 1 Live) • Scale $400K"
       },
       traps: [
         {
