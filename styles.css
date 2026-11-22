@@ -212,9 +212,9 @@ a {
 .kz-nav {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 13px;
   margin-left: auto;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
   min-width: 0;
 }
@@ -1035,9 +1035,9 @@ html[data-theme="light"] .aurora-banner {
   }
 }
 
-@media (max-width: 1220px) {
+@media (max-width: 1260px) {
   .kz-nav {
-    gap: 13px;
+    gap: 12px;
     font-size: 13px;
   }
   .kz-hd .kz-cta {
@@ -1046,7 +1046,7 @@ html[data-theme="light"] .aurora-banner {
   }
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1180px) {
   .kz-nav {
     display: none;
     position: absolute;
@@ -1764,6 +1764,113 @@ html[data-theme="light"] .bx-showcase {
   display: grid;
   grid-template-columns: 1.55fr 1fr 1fr 0.9fr;
   gap: 12px;
+}
+
+/* Futures 101 Guide & FAQ Page */
+.guide-diff-grid,
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-matcher-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-matcher-grid .card {
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-matcher-grid .card .kz-cta {
+  margin-top: auto;
+}
+
+.roadmap-step {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--kz-cyan);
+  background: rgba(56, 213, 231, 0.12);
+  border: 1px solid rgba(56, 213, 231, 0.32);
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--kz-surface);
+  border: 1px solid var(--kz-line);
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.faq-item[open] {
+  border-color: rgba(56, 213, 231, 0.45);
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--kz-strong);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--kz-cyan);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+  content: "−";
+  color: var(--kz-gold);
+}
+
+.faq-body {
+  padding: 0 20px 18px;
+  font-size: 13.8px;
+  color: var(--kz-text2);
+  border-top: 1px dashed var(--kz-line);
+  padding-top: 13px;
+}
+
+@media (max-width: 960px) {
+  .guide-matcher-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .guide-diff-grid,
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 620px) {

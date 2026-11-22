@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Nhập Môn Quỹ Futures 101 & FAQ (Cho Người Mới Từ Forex/CFD) — KENVINZONE PROP HUB</title>
+  <meta name="description" content="Cẩm nang nhập môn giao dịch quỹ Futures cho người mới chuyển từ Forex/Crypto: Bảng quy đổi Mini/Micro, gợi ý chọn quỹ, lưu ý Non-Professional, W-8BEN, rút tiền về Việt Nam và FAQ." />
+  <link rel="canonical" href="https://prop.kenvinzone.com/guide.html" />
+  <meta property="og:title" content="Nhập Môn Quỹ Futures 101 & FAQ — KENVINZONE PROP HUB" />
+  <meta property="og:description" content="Hướng dẫn A–Z cho người mới chuyển từ Forex/CFD sang quỹ Futures CME (Bulenox, Earn2Trade, Topstep)." />
+  <meta property="og:url" content="https://prop.kenvinzone.com/guide.html" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Người Việt Nam có thi và rút tiền từ Bulenox, Earn2Trade, Topstep được không?","acceptedAnswer":{"@type":"Answer","text":"Có. Cả 3 quỹ đều hỗ trợ trader từ Việt Nam, xác minh KYC bằng CCCD/Hộ chiếu, khai form thuế W-8BEN (không khấu trừ thuế Mỹ) và rút tiền qua RiseWorks, Wise hoặc Wire Transfer."}},{"@type":"Question","name":"LiveSim / XFA / Master Account khác gì tài khoản Live tiền thật?","acceptedAnswer":{"@type":"Answer","text":"LiveSim (Earn2Trade), XFA (Topstep) và Master Account (Bulenox) đều là tài khoản mô phỏng dữ liệu thực nhưng được chia lợi nhuận và rút tiền thật theo tỷ lệ 80%–100% trước khi quỹ chuyển bạn lên tài khoản Live brokerage."}},{"@type":"Question","name":"Mới chuyển từ Forex sang nên giao dịch hợp đồng Mini hay Micro?","acceptedAnswer":{"@type":"Answer","text":"Người mới luôn nên bắt đầu với hợp đồng Micro (MNQ, MES, MGC) vì kích thước chỉ bằng 1/10 Mini, giúp kiểm soát rủi ro dễ dàng và tránh chạm Daily Loss Limit."}}]}</script>
+  <meta name="theme-color" content="#070F1D" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='7' fill='%23080E1B'/%3E%3Cpath d='M4 21L10 15L15 19L24 7' stroke='%2338D5E7' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="kz-bg-grid">
+
+  <!-- Top Scroll Telemetry Progress Beam -->
+  <div class="kz-scroll-beam-track" aria-hidden="true">
+    <div class="kz-scroll-beam" id="kzScrollBeam"></div>
+  </div>
+
+  <!-- Floating Chapter Rail HUD (Desktop) -->
+  <nav class="kz-chapter-rail" aria-label="Điều hướng nhanh theo mục">
+    <a href="#futures-vs-forex" data-chapter-link="futures-vs-forex" data-label="01 · Futures vs Forex" data-i18n-label="gd.rail1"></a>
+    <a href="#chon-quy" data-chapter-link="chon-quy" data-label="02 · Chọn quỹ nhanh" data-i18n-label="gd.rail2"></a>
+    <a href="#lo-trinh-az" data-chapter-link="lo-trinh-az" data-label="03 · Lộ trình A–Z" data-i18n-label="gd.rail3"></a>
+    <a href="#faq" data-chapter-link="faq" data-label="04 · FAQ" data-i18n-label="gd.rail4"></a>
+  </nav>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="kz-hd">
+    <div class="kz-hd-in">
+      <div class="kz-brand">
+        <a href="index.html" class="kz-logo">
+          <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect width="28" height="28" rx="7" fill="#0A1426" stroke="#38D5E7" stroke-opacity="0.45"/>
+            <path d="M5 20L10.5 14.5L15 18.2L23 7.5" stroke="#38D5E7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="23" cy="7.5" r="2.2" fill="#F3BE62"/>
+          </svg>
+          <span>KENVINZONE</span>
+        </a>
+        <span class="kz-prod-badge">FUTURES 101</span>
+      </div>
+
+      <nav class="kz-nav" id="mainNav">
+        <a href="index.html" data-i18n="nav.back">← Dashboard Rule</a>
+        <a href="index.html#so-sanh" data-i18n="nav.compare">So sánh 3 quỹ</a>
+        <a href="index.html#cong-cu" data-i18n="nav.tools">Công cụ tính</a>
+        <a href="guide.html" class="active" data-i18n="nav.guide">📘 Nhập môn 101</a>
+        <a href="coupons.html" class="nav-coupon" data-i18n="nav.coupons">🔥 Mã giảm giá</a>
+        <a href="https://aurora.kenvinzone.com/" data-aurora-link target="_blank" rel="noopener noreferrer">Aurora V12.2</a>
+      </nav>
+
+      <div class="kz-hd-r">
+        <button type="button" class="kz-icon-btn mono" id="langToggle" style="font-size:12px;font-weight:800;width:42px" title="Switch Language (VI / EN)" aria-label="Switch language">EN</button>
+        <button type="button" class="kz-icon-btn" id="themeToggle" title="Chuyển giao diện Sáng / Tối" aria-label="Đổi giao diện">
+          🌓
+        </button>
+        <a href="coupons.html" class="kz-cta kz-cta-gold" data-i18n="nav.ctaCoupon">Săn Coupon HOT</a>
+        <button type="button" class="kz-icon-btn kz-menu-btn" id="menuToggle" aria-label="Mở menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO ==================== -->
+    <section class="hero kz-aurora-wrap" style="padding:46px 0 32px">
+      <canvas id="kzHeroFlowCanvas" aria-hidden="true"></canvas>
+      <div class="kz-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="container">
+        <div class="hero-eyebrow">
+          <span class="hero-dot"></span>
+          <span data-i18n="gd.eyebrow">Cẩm Nang Nhập Môn Quỹ Futures · Cập nhật:</span> <span data-last-updated>22/11/2026</span>
+        </div>
+        <h1 style="max-width:860px" data-i18n-html="gd.title">
+          Nhập Môn Thi Quỹ <span class="grad-cyan">Futures CME</span> Cho Người Mới Chuyển Từ <span class="grad-gold">Forex / Crypto</span>
+        </h1>
+        <p class="hero-desc" style="max-width:740px" data-i18n-html="gd.desc">
+          Mọi kiến thức nền tảng thực chiến trước khi xuống tiền mua gói thi đầu tiên: <strong>Bảng quy đổi Mini/Micro</strong>, chọn đúng quỹ theo ngân sách, <strong>cảnh báo tránh mất phí $140/tháng</strong>, quy trình KYC – thuế <strong>W-8BEN</strong> – rút tiền về Việt Nam và 10 câu hỏi FAQ phổ biến nhất.
+        </p>
+        <div class="hero-actions">
+          <a href="#futures-vs-forex" class="kz-cta kz-cta-cyan" data-i18n="gd.btn1">1. Futures vs Forex & Mini/Micro ↓</a>
+          <a href="#chon-quy" class="kz-cta kz-cta-ghost" data-i18n="gd.btn2">2. Gợi ý chọn quỹ</a>
+          <a href="#lo-trinh-az" class="kz-cta kz-cta-ghost" data-i18n="gd.btn3">3. Lộ trình A–Z & Rút tiền VN</a>
+          <a href="#faq" class="kz-cta kz-cta-gold" data-i18n="gd.btn4">4. Xem 10 FAQ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 1: FUTURES VS FOREX & MINI/MICRO TABLE ==================== -->
+    <section class="section" id="futures-vs-forex">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" data-i18n="gd.s1Kicker">01 · Nền tảng cho người mới</div>
+            <h2 class="section-title" data-i18n="gd.s1Title">Futures Khác Gì Forex/CFD & Bảng Quy Đổi Mini / Micro</h2>
+            <p class="section-sub" data-i18n="gd.s1Sub">Nắm chắc 4 khác biệt cốt lõi và bảng giá trị Tick/Point dưới đây để không bao giờ "vào nhầm size" như khi đánh Lot bên Forex.</p>
+          </div>
+          <a href="index.html#cong-cu" class="kz-cta kz-cta-cyan" data-i18n="gd.s1Btn">Mở Máy tính Khối lượng →</a>
+        </div>
+
+        <div class="guide-diff-grid">
+          <div class="card">
+            <span class="tag tag-cyan" style="margin-bottom:10px" data-i18n="gd.d1Tag">MINH BẠCH SÀN TẬP TRUNG</span>
+            <h3 style="margin:0 0 8px;font-size:16px;color:var(--kz-strong)" data-i18n="gd.d1Title">Sàn tập trung CME vs Sàn CFD</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.d1Desc">Hợp đồng tương lai giao dịch qua sàn tập trung CME Group (Mỹ). Toàn bộ trader nhìn chung 1 sổ lệnh (Order Book) và 1 mức giá chuẩn — không có chuyện sàn tự giãn spread ảo hay quét stop-loss bất thường như CFD.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-gold" style="margin-bottom:10px" data-i18n="gd.d2Tag">KHỐI LƯỢNG & PHÍ</span>
+            <h3 style="margin:0 0 8px;font-size:16px;color:var(--kz-strong)" data-i18n="gd.d2Title">Tính theo Hợp đồng (Contract) & Commission</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.d2Desc">Thay vì Lot (0.01, 0.1, 1.0), Futures dùng Hợp đồng nguyên (1, 2, 3...) chia làm 2 cỡ: Mini (chuẩn) và Micro (bằng 1/10 Mini). Spread thường chỉ 1 tick và bạn trả phí hoa hồng (Commission) cố định mỗi vòng lệnh.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-rose" style="margin-bottom:10px" data-i18n="gd.d3Tag">GIỜ ĐÓNG CỬA BẮT BUỘC</span>
+            <h3 style="margin:0 0 8px;font-size:16px;color:var(--kz-strong)" data-i18n="gd.d3Title">Không giữ lệnh qua đêm (Flat Time)</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.d3Desc">Quỹ Futures chỉ cho đánh trong ngày (Intraday). Bạn phải đóng hết lệnh & hủy lệnh chờ trước giờ CT quy định (khoảng 3:10–3:59 sáng giờ VN mùa Hè, cộng thêm 1 tiếng mùa Đông). Tuyệt đối không nuôi lệnh qua tuần.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-green" style="margin-bottom:10px" data-i18n="gd.d4Tag">THUẬT NGỮ QUỸ FUTURES</span>
+            <h3 style="margin:0 0 8px;font-size:16px;color:var(--kz-strong)" data-i18n="gd.d4Title">LiveSim, Buffer & Hard/Soft DLL</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.d4Desc">Khi thi đỗ, bạn vào LiveSim / XFA / Master (tài khoản mô phỏng dữ liệu thật nhưng RÚT ĐƯỢC TIỀN THẬT). Luôn xây lớp đệm (Buffer/Safety Reserve) đủ dày trước khi rút để không bị kẹt MLL/Drawdown.</p>
+          </div>
+        </div>
+
+        <h3 style="margin:26px 0 12px;font-size:18px;font-weight:800;color:var(--kz-strong)" data-i18n="gd.tblHeading">📊 Bảng Tra Cứu Nhanh 10 Mã CME Futures Phổ Biến (Mini vs Micro)</h3>
+        <div class="table-wrap">
+          <table class="prop-table">
+            <thead>
+              <tr>
+                <th data-i18n="gd.thSym">Mã (Mini / Micro)</th>
+                <th data-i18n="gd.thProd">Sản phẩm</th>
+                <th data-i18n="gd.thTick">Giá trị 1 Tick</th>
+                <th data-i18n="gd.thTpp">Ticks / 1 Point</th>
+                <th data-i18n="gd.thPt">Giá trị 1 Point</th>
+                <th data-i18n="gd.thFx">Cảm giác tương đương Forex/CFD</th>
+                <th data-i18n="gd.thTip">Gợi ý cho người mới</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-label mono"><span style="color:var(--kz-cyan)">MNQ</span> / NQ</td>
+                <td>Nasdaq-100 Futures</td>
+                <td class="mono">$0.50 / $5.00</td>
+                <td class="mono">4 ticks</td>
+                <td class="mono" style="color:var(--kz-green);font-weight:700">$2 / $20</td>
+                <td data-i18n="gd.fxNq">1 NQ ≈ 20 USD/điểm (rất nhanh!)</td>
+                <td data-i18n-html="gd.tipNq"><strong>Chỉ nên đánh MNQ</strong> (1–5 HĐ) lúc mới vào</td>
+              </tr>
+              <tr>
+                <td class="col-label mono"><span style="color:var(--kz-cyan)">MES</span> / ES</td>
+                <td>S&amp;P 500 Futures</td>
+                <td class="mono">$1.25 / $12.50</td>
+                <td class="mono">4 ticks</td>
+                <td class="mono" style="color:var(--kz-green);font-weight:700">$5 / $50</td>
+                <td data-i18n="gd.fxEs">1 ES ≈ 50 USD/điểm (êm hơn NQ)</td>
+                <td data-i18n-html="gd.tipEs"><strong>MES</strong> rất chuẩn để tập quản trị rủi ro</td>
+              </tr>
+              <tr>
+                <td class="col-label mono"><span style="color:var(--kz-gold)">MGC</span> / GC</td>
+                <td data-i18n="gd.prodGc">Gold Futures (Vàng)</td>
+                <td class="mono">$1.00 / $10.00</td>
+                <td class="mono">10 ticks</td>
+                <td class="mono" style="color:var(--kz-gold);font-weight:700">$10 / $100</td>
+                <td data-i18n="gd.fxGc">1 MGC ≈ 0.1 Lot XAUUSD • 1 GC ≈ 1.0 Lot</td>
+                <td data-i18n="gd.tipGc">Rất quen tay cho trader đánh Vàng (XAUUSD)</td>
+              </tr>
+              <tr>
+                <td class="col-label mono"><span style="color:var(--kz-gold)">MCL</span> / CL</td>
+                <td data-i18n="gd.prodCl">WTI Crude Oil (Dầu)</td>
+                <td class="mono">$1.00 / $10.00</td>
+                <td class="mono">100 ticks</td>
+                <td class="mono" style="color:var(--kz-gold);font-weight:700">$100 / $1,000</td>
+                <td data-i18n="gd.fxCl">1 MCL ≈ 0.1 Lot USOIL • 1 CL ≈ 1.0 Lot</td>
+                <td data-i18n-html="gd.tipCl">Biến động mạnh phiên Mỹ, nên dùng <strong>MCL</strong></td>
+              </tr>
+              <tr>
+                <td class="col-label mono"><span style="color:var(--kz-green)">MYM</span> / YM</td>
+                <td>Dow Jones Futures</td>
+                <td class="mono">$0.50 / $5.00</td>
+                <td class="mono">1 tick</td>
+                <td class="mono" style="color:var(--kz-green);font-weight:700">$0.50 / $5</td>
+                <td data-i18n="gd.fxYm">1 MYM ≈ 0.5 USD/điểm US30</td>
+                <td data-i18n="gd.tipYm">Nhẹ nhàng nhất cho tài khoản $25K–$50K</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2: QUICK FIRM MATCHER ==================== -->
+    <section class="section" id="chon-quy">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" style="color:var(--kz-gold)" data-i18n="gd.s2Kicker">02 · Chọn đúng ngay từ đầu</div>
+            <h2 class="section-title" data-i18n="gd.s2Title">Gợi Ý Chọn Quỹ Phù Hợp Theo Hồ Sơ Người Mới</h2>
+            <p class="section-sub" data-i18n="gd.s2Sub">Mỗi quỹ có một thế mạnh riêng. Chọn đúng quỹ khớp với thói quen giao dịch sẽ tăng tỷ lệ pass lên gấp đôi.</p>
+          </div>
+        </div>
+
+        <div class="guide-matcher-grid">
+          <div class="card">
+            <span class="tag tag-green" style="margin-bottom:10px" data-i18n="gd.m1Tag">DỄ LÀM QUEN NHẤT (TỪ FOREX/CRYPTO)</span>
+            <h3 style="margin:0 0 8px;font-size:17px;color:var(--kz-strong)" data-i18n="gd.m1Title">Topstep (TopstepX + Gói NAF)</h3>
+            <p style="margin:0 0 14px;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.m1Desc">Giao dịch thẳng trên giao diện web TradingView cực quen mắt, không cần cài NinjaTrader hay cấu hình Rithmic. Có sẵn Copy Trader & gói $0 phí kích hoạt XFA.</p>
+            <a href="coupons.html?firm=topstep" class="kz-cta kz-cta-cyan" style="width:100%" data-i18n="gd.m1Btn">Xem giá Topstep (-50% KENVINZONE) →</a>
+          </div>
+
+          <div class="card">
+            <span class="tag tag-cyan" style="margin-bottom:10px" data-i18n="gd.m2Tag">CHI PHÍ THỬ NGHIỆM THẤP NHẤT (<$20)</span>
+            <h3 style="margin:0 0 8px;font-size:17px;color:var(--kz-strong)">Bulenox (Option 1 / Option 2)</h3>
+            <p style="margin:0 0 14px;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.m2Desc">Áp mã 5BAAG giảm 89% (gói 50K Opt 1 chỉ $19.25). Rất hợp để trải nghiệm áp lực thi quỹ với chi phí siêu rẻ — nhưng nếu ghét Intraday Trailing, hãy chọn Option 2 EOD (-75%).</p>
+            <a href="coupons.html?firm=bulenox" class="kz-cta kz-cta-cyan" style="width:100%" data-i18n="gd.m2Btn">Xem giá Bulenox (-89% 5BAAG) →</a>
+          </div>
+
+          <div class="card">
+            <span class="tag tag-gold" style="margin-bottom:10px" data-i18n="gd.m3Tag">ORDER FLOW MIỄN PHÍ & SCALE $400K</span>
+            <h3 style="margin:0 0 8px;font-size:17px;color:var(--kz-strong)">Earn2Trade (TCP + dxFeed × ATAS)</h3>
+            <p style="margin:0 0 14px;font-size:13.5px;color:var(--kz-text2)" data-i18n="gd.m3Desc">Lựa chọn số 1 nếu bạn muốn lộ trình nâng vốn bài bản lên $400K, thích dùng MIỄN PHÍ phần mềm ATAS / DeepCharts qua dxFeed và không muốn trả trước phí kích hoạt ($139 trừ vào lần rút đầu).</p>
+            <a href="coupons.html?firm=earn2trade" class="kz-cta kz-cta-gold" style="width:100%" data-i18n="gd.m3Btn">Xem giá Earn2Trade (-70% BIGBF2026) →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: 4-STEP ROADMAP A-Z & VIETNAM PAYOUTS ==================== -->
+    <section class="section" id="lo-trinh-az">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" data-i18n="gd.s3Kicker">03 · Quy trình thực chiến A–Z</div>
+            <h2 class="section-title" data-i18n="gd.s3Title">4 Bước Cần Làm Đúng Để Tránh Mất Tiền Oan & Rút Tiền Về Việt Nam</h2>
+            <p class="section-sub" data-i18n="gd.s3Sub">Rất nhiều người mới mất tiền không phải vì phân tích sai, mà vì bấm nhầm thỏa thuận dữ liệu hoặc quên tắt tự động gia hạn.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-grid">
+          <div class="card roadmap-card">
+            <div class="roadmap-step mono">STEP 01</div>
+            <h3 style="margin:0 0 8px;font-size:16.5px;color:var(--kz-strong)" data-i18n="gd.st1Title">Ký Thỏa Thuận Dữ Liệu: Luôn Chọn NON-PROFESSIONAL</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n-html="gd.st1Desc">Sau khi mua gói (Rithmic / dxFeed / CME), hệ thống sẽ yêu cầu ký thỏa thuận dữ liệu thị trường. Là trader cá nhân tự giao dịch bằng tiền/tài khoản của mình, bạn <strong>TUYỆT ĐỐI chọn "Non-Professional"</strong>. Nếu bấm nhầm "Professional", sàn CME sẽ tính phí data <strong>$140+/tháng cho mỗi sàn</strong>!</p>
+          </div>
+
+          <div class="card roadmap-card">
+            <div class="roadmap-step mono">STEP 02</div>
+            <h3 style="margin:0 0 8px;font-size:16.5px;color:var(--kz-strong)" data-i18n="gd.st2Title">Kiểm Soát Gia Hạn Tự Động (Auto-Renewal)</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n-html="gd.st2Desc">Các gói thi quỹ Futures hoạt động theo dạng thuê bao hàng tháng (Subscription). Nếu thi trượt và không muốn thi tiếp, hãy vào <strong>Billing / Subscription</strong> để hủy gia hạn trước ngày chu kỳ mới. Riêng Earn2Trade tặng 1 lần Reset miễn phí khi Rebill nên có thể cân nhắc chờ gia hạn nếu gần cuối tháng.</p>
+          </div>
+
+          <div class="card roadmap-card">
+            <div class="roadmap-step mono">STEP 03</div>
+            <h3 style="margin:0 0 8px;font-size:16.5px;color:var(--kz-strong)" data-i18n="gd.st3Title">Cài Hàng Rào Tự Bảo Vệ Trước Khi Vào Lệnh #1</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n-html="gd.st3Desc">Trên TopstepX / Rithmic / NinjaTrader, hãy tự đặt <strong>Personal Daily Loss Limit</strong> thấp hơn mức Hard DLL của quỹ 20–30% (để phần mềm tự khóa tay khi tâm lý mất bình tĩnh) và hẹn chuông đóng lệnh trước giờ CT tối thiểu 10 phút. Dùng <a href="index.html#cong-cu" style="color:var(--kz-cyan);text-decoration:underline">Máy tính khối lượng</a> trước khi vào lệnh.</p>
+          </div>
+
+          <div class="card roadmap-card">
+            <div class="roadmap-step mono">STEP 04</div>
+            <h3 style="margin:0 0 8px;font-size:16.5px;color:var(--kz-strong)" data-i18n="gd.st4Title">KYC, Khai Thuế W-8BEN & Rút Tiền Về Việt Nam</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--kz-text2)" data-i18n-html="gd.st4Desc">Khi thi đỗ, bạn chỉ cần xác minh KYC bằng <strong>CCCD gắn chip / Hộ chiếu</strong> + sao kê ngân hàng khớp địa chỉ và ký form thuế <strong>W-8BEN</strong> (xác nhận là công dân ngoài Mỹ để không bị Mỹ khấu trừ 30% thuế nguồn). Tiền rút về ngân hàng VN qua <strong>RiseWorks, Wise hoặc Wire Transfer</strong> thường mất 1–3 ngày làm việc.</p>
+          </div>
+        </div>
+
+        <h3 style="margin:24px 0 12px;font-size:17px;font-weight:800;color:var(--kz-strong)" data-i18n="gd.payTblTitle">💸 So Sánh Nhanh Các Cổng Rút Tiền Phổ Biến Về Việt Nam</h3>
+        <div class="table-wrap">
+          <table class="prop-table">
+            <thead>
+              <tr>
+                <th data-i18n="gd.pthRail">Cổng thanh toán</th>
+                <th data-i18n="gd.pthFirms">Quỹ hỗ trợ phổ biến</th>
+                <th data-i18n="gd.pthFee">Phí rút tham khảo</th>
+                <th data-i18n="gd.pthTime">Thời gian về bank VN</th>
+                <th data-i18n="gd.pthNote">Lưu ý cho trader VN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-label">RiseWorks (Rise)</td>
+                <td>Earn2Trade, Bulenox</td>
+                <td class="mono" data-i18n="gd.pRiseFee">Thấp (~0%–1% tùy hình thức)</td>
+                <td data-i18n="gd.pRiseTime">1–3 ngày làm việc</td>
+                <td data-i18n="gd.pRiseNote">Rất phổ biến với prop firm Mỹ, hỗ trợ rút về bank VN hoặc USDC/crypto (tùy cấu hình tài khoản Rise).</td>
+              </tr>
+              <tr>
+                <td class="col-label">Wise</td>
+                <td>Topstep, Bulenox</td>
+                <td class="mono" data-i18n="gd.pWiseFee">$0 phí từ Topstep (chỉ phí đổi tỷ giá Wise)</td>
+                <td data-i18n="gd.pWiseTime">Vài giờ – 2 ngày</td>
+                <td data-i18n="gd.pWiseNote">Tỷ giá USD/VND rất sát thị trường, tiền về thẳng tài khoản ngân hàng Việt Nam (VCB, ACB, Techcombank...).</td>
+              </tr>
+              <tr>
+                <td class="col-label">International Wire</td>
+                <td>Bulenox, Earn2Trade, Topstep</td>
+                <td class="mono" data-i18n="gd.pWireFee">~$25–$35/lần + phí bank nhận</td>
+                <td data-i18n="gd.pWireTime">2–5 ngày làm việc</td>
+                <td data-i18n="gd.pWireNote">Phù hợp khi rút khoản lớn (≥$2,000) để tối ưu tỷ lệ phí cố định. Cần chuẩn bị mã SWIFT ngân hàng VN.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4: FAQ ACCORDION ==================== -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker" style="color:var(--kz-cyan)" data-i18n="gd.s4Kicker">04 · Giải đáp nhanh</div>
+            <h2 class="section-title" data-i18n="gd.s4Title">10 Câu Hỏi Thường Gặp (FAQ) Về Quỹ Futures</h2>
+            <p class="section-sub" data-i18n="gd.s4Sub">Bấm vào từng câu hỏi bên dưới để xem câu trả lời ngắn gọn, đúng trọng tâm.</p>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary data-i18n="gd.fq1">1. Người Việt Nam có thi và rút tiền từ Bulenox, Earn2Trade, Topstep hợp pháp & thuận tiện không?</summary>
+            <div class="faq-body" data-i18n="gd.fa1">Có. Cả 3 quỹ đều chấp nhận trader từ Việt Nam. Khi đỗ vòng thi, bạn xác minh KYC bằng CCCD/Hộ chiếu, điền form W-8BEN (xác nhận không phải công dân Mỹ) và rút lợi nhuận về tài khoản ngân hàng Việt Nam thông qua Wise, RiseWorks hoặc chuyển khoản SWIFT/Wire.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq2">2. Có bắt buộc phải biết cài NinjaTrader hay Rithmic mới thi được quỹ Futures không?</summary>
+            <div class="faq-body" data-i18n="gd.fa2">Không bắt buộc. Nếu bạn quen giao dịch trên web TradingView, chỉ cần chọn Topstep (nền tảng TopstepX chạy thẳng trên trình duyệt) hoặc Earn2Trade (có tùy chọn Tradovate / TradingView). Còn nếu bạn thích phân tích Order Flow sâu thì mới cần cài NinjaTrader, Quantower hoặc ATAS.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq3">3. Thi trượt có bị tự động trừ tiền gia hạn tháng sau (Auto-Renewal) không?</summary>
+            <div class="faq-body" data-i18n="gd.fa3">Có! Hầu hết quỹ Futures hoạt động theo cơ chế thuê bao hàng tháng. Nếu tài khoản bị vi phạm luật nhưng bạn KHÔNG vào trang quản lý hủy gói (Cancel Subscription), thẻ của bạn vẫn sẽ bị tự động gia hạn vào chu kỳ kế tiếp. Hãy chủ động hủy ngay nếu không có ý định thi tiếp.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq4">4. Tài khoản LiveSim / XFA / Master Account khác gì tài khoản Live tiền thật? Có rút được tiền thật không?</summary>
+            <div class="faq-body" data-i18n="gd.fa4">LiveSim (Earn2Trade), XFA (Topstep) và Master Account (Bulenox) đều chạy trên môi trường mô phỏng theo dữ liệu thị trường thực tế 100%, và BẠN RÚT ĐƯỢC TIỀN THẬT theo đúng tỷ lệ chia lợi nhuận (80%–100%) ngay ở giai đoạn này. Sau khi bạn rút tiền đều đặn, quỹ có thể chuyển bạn lên tài khoản Live thật (khi đó thường gỡ bỏ trần rút nhưng có phát sinh phí data sàn CME).</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq5">5. Có được dùng Bot/EA hay Copy Trade giữa nhiều tài khoản không?</summary>
+            <div class="faq-body" data-i18n="gd.fa5">Copy Trade tài khoản cá nhân của chính bạn được phép ở cả 3 quỹ (TopstepX có sẵn bộ Copy Trader tích hợp cho tối đa 5 XFA; Bulenox & Earn2Trade dùng phần mềm copy trên Rithmic/NinjaTrader). Tuyệt đối cấm Hedge chéo (mua TK này, bán TK kia), giao dịch chênh lệch độ trễ (latency arbitrage) hoặc HFT.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq6">6. Giao dịch lúc ra tin mạnh (CPI, NFP, FOMC) có bị cấm hay bị trừ lãi không?</summary>
+            <div class="faq-body" data-i18n="gd.fa6">Khác với nhiều quỹ Forex CFD hay cấm giao dịch trước/sau tin 2–5 phút, cả Bulenox, Earn2Trade và Topstep đều CHO PHÉP giao dịch tin tức. Tuy nhiên, lúc ra tin biến động cực mạnh rất dễ trượt giá (slippage) làm chạm Hard DLL hoặc Intraday Trailing Drawdown nên người mới cần hết sức thận trọng.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq7">7. Lỡ quên đóng lệnh qua giờ đóng cửa (3:10 / 3:50 / 3:59 PM CT) thì bị sao?</summary>
+            <div class="faq-body" data-i18n="gd.fa7">Giữ lệnh qua giờ đóng cửa bắt buộc là vi phạm luật nghiêm trọng (nhất là trên tài khoản cấp vốn có thể dẫn tới hủy tài khoản ngay lập tức). Hãy nhớ Topstep đóng sớm nhất lúc 3:10 PM CT (tự flatten từ 3:08 PM CT), Earn2Trade lúc 3:50 PM CT và Bulenox lúc 3:59 PM CT.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq8">8. Rút tiền lần đầu có làm thay đổi mức Drawdown không?</summary>
+            <div class="faq-body" data-i18n="gd.fa8">CÓ — đây là "bẫy" kinh điển! Ví dụ tại Topstep XFA, ngay khi bạn rút tiền lần đầu, MLL sẽ khóa cứng tại $0 (số dư gốc), nên phần lãi còn lại chính là toàn bộ Drawdown của bạn. Tại Bulenox cũng có Safety Reserve (mức dự phòng bắt buộc giữ lại). Vì vậy đừng bao giờ rút cạn sạch phần đệm (Buffer).</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq9">9. Phí kích hoạt (Activation Fee) có phải đóng hàng tháng không?</summary>
+            <div class="faq-body" data-i18n="gd.fa9">Không! Phí kích hoạt ($149 ở Topstep Standard, $139 ở Earn2Trade LiveSim — trừ vào lần rút đầu, hoặc $143–$498 ở Bulenox Qualification) đều là phí MỘT LẦN DUY NHẤT khi chuyển từ vòng thi lên tài khoản cấp vốn. Riêng Topstep gói NAF và Bulenox gói Momentum có phí kích hoạt $0.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="gd.fq10">10. Mới chuyển từ Forex sang nên đánh Mini hay Micro? Rủi ro bao nhiêu mỗi lệnh?</summary>
+            <div class="faq-body" data-i18n="gd.fa10">Hãy luôn bắt đầu với hợp đồng Micro (MNQ, MES, MGC) và giới hạn rủi ro khoảng $150–$250/lệnh cho tài khoản $50K (tương đương 8%–12% tổng Drawdown $2,000). Chỉ cần 6–8 lệnh tỷ lệ 2R rải đều nhiều ngày là bạn đủ vượt mục tiêu $3,000 mà luôn thỏa mãn Consistency Rule.</div>
+          </details>
+        </div>
+
+        <div class="card" style="margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+          <div>
+            <div class="section-kicker" style="margin-bottom:4px" data-i18n="gd.ctaKicker">Sẵn sàng bắt đầu bài bản?</div>
+            <div style="font-size:16px;font-weight:800;color:var(--kz-strong)" data-i18n="gd.ctaTitle">So sánh chi tiết 3 quỹ hoặc lấy mã giảm giá sâu nhất hôm nay</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <a href="index.html#chi-tiet-quy" class="kz-cta kz-cta-cyan" data-i18n="gd.ctaBtn1">Soi Rule chi tiết 3 quỹ →</a>
+            <a href="coupons.html" class="kz-cta kz-cta-gold" data-i18n="gd.ctaBtn2">🔥 Săn Mã Giảm Giá</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="kz-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div data-i18n-html="ft.guideMain">
+          <strong style="color:var(--kz-strong)">KENVINZONE FUTURES 101</strong> · Cẩm nang nhập môn quỹ Futures & FAQ cho cộng đồng trader Việt Nam.
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <a href="index.html" data-i18n="ft.back">← Quay lại Dashboard Rule</a>
+          <a href="coupons.html" style="color:var(--kz-gold)" data-i18n="nav.coupons">🔥 Mã giảm giá</a>
+          <a href="https://aurora.kenvinzone.com/" data-aurora-link target="_blank" rel="noopener noreferrer" style="color:var(--kz-cyan)">Aurora V12.2</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="lang.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="motion.js" defer></script>
+</body>
+</html>
