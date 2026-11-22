@@ -1802,6 +1802,21 @@ html[data-theme="light"] .bx-showcase {
   margin-bottom: 10px;
 }
 
+.verdict-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(56, 213, 231, 0.08);
+  border: 1px solid rgba(56, 213, 231, 0.3);
+  font-size: 13.5px;
+  color: var(--kz-text);
+  line-height: 1.65;
+}
+
+.verdict-box strong {
+  color: var(--kz-strong);
+}
+
 .faq-list {
   display: grid;
   gap: 12px;
