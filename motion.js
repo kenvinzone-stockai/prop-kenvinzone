@@ -277,21 +277,70 @@
     let rafId = null;
     let time = 0;
 
-    // Pre-generate deterministic candlestick sequence for smooth infinite loop
-    const candleCount = 46;
+    // Diverse realistic Japanese candlestick archetypes (Marubozu, Hammer/Pinbar, Shooting Star, Doji, Engulfing, Pullback)
+    const candleCount = 48;
     const candles = [];
-    let price = 0.28;
+    const archetypes = [
+      { d: 0.085, up: 0.015, dn: 0.020 },
+      { d: 0.042, up: 0.055, dn: 0.025 },
+      { d: -0.018, up: 0.068, dn: 0.014 },
+      { d: -0.065, up: 0.022, dn: 0.018 },
+      { d: 0.008, up: 0.052, dn: 0.056 },
+      { d: 0.022, up: 0.012, dn: 0.095 },
+      { d: 0.098, up: 0.012, dn: 0.010 },
+      { d: 0.028, up: 0.042, dn: 0.036 },
+      { d: -0.044, up: 0.030, dn: 0.022 },
+      { d: -0.024, up: 0.018, dn: 0.078 },
+      { d: 0.072, up: 0.020, dn: 0.016 },
+      { d: 0.012, up: 0.034, dn: 0.030 }
+    ];
+    let price = 0.26;
     for (let i = 0; i < candleCount; i++) {
-      const wave = Math.sin(i * 0.42) * 0.055 + Math.cos(i * 0.19) * 0.035;
-      const drift = 0.011;
-      const delta = drift + wave * 0.48 + ((i % 5 === 0 ? -0.048 : 0.024));
+      const a = archetypes[i % archetypes.length];
+      const jitter = Math.sin(i * 1.37) * 0.012;
       const open = price;
-      const close = Math.min(0.86, Math.max(0.14, open + delta));
-      const high = Math.min(0.93, Math.max(open, close) + 0.025 + ((i * 7) % 5) * 0.011);
-      const low = Math.max(0.08, Math.min(open, close) - 0.022 - ((i * 3) % 4) * 0.01);
+      let close = open + a.d + jitter;
+      if (close > 0.84) {
+        price = 0.34 + ((i * 7) % 10) * 0.014;
+        close = price + a.d * 0.8;
+      } else if (close < 0.16) {
+        price = 0.24;
+        close = price + Math.abs(a.d);
+      }
+      const topBody = Math.max(open, close);
+      const botBody = Math.min(open, close);
+      const high = Math.min(0.95, topBody + a.up);
+      const low = Math.max(0.05, botBody - a.dn);
       candles.push({ open, close, high, low, bull: close >= open });
       price = close;
-      if (price > 0.78) price -= 0.24;
+    }
+
+    function drawCleanCandle(x, bodyW, yHigh, yLow, bodyTop, bodyH, fillCol, wickCol) {
+      const bodyBot = bodyTop + bodyH;
+      // Upper wick ONLY from yHigh down to bodyTop (never pierces candle body)
+      if (yHigh < bodyTop - 0.5) {
+        ctx.beginPath();
+        ctx.moveTo(x, yHigh);
+        ctx.lineTo(x, bodyTop);
+        ctx.strokeStyle = wickCol;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+      // Lower wick ONLY from bodyBot down to yLow (never pierces candle body)
+      if (yLow > bodyBot + 0.5) {
+        ctx.beginPath();
+        ctx.moveTo(x, bodyBot);
+        ctx.lineTo(x, yLow);
+        ctx.strokeStyle = wickCol;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+      // Clean translucent candle body
+      ctx.fillStyle = fillCol;
+      ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, bodyH);
+      ctx.strokeStyle = wickCol;
+      ctx.lineWidth = 0.85;
+      ctx.strokeRect(x - bodyW / 2, bodyTop, bodyW, bodyH);
     }
 
     // Upward zig-zag growth trendline anchor points (normalized 0..1)
@@ -379,7 +428,7 @@
           const yOpen = chartTop + (1 - c.open) * chartH;
           const yClose = chartTop + (1 - c.close) * chartH;
           const bodyTop = Math.min(yOpen, yClose);
-          const bodyH = Math.max(5, Math.abs(yClose - yOpen));
+          const bodyH = Math.max(2.5, Math.abs(yClose - yOpen));
           const bodyW = Math.max(8, spacing * 0.44);
 
           const isCyan = i % 3 === 0;
@@ -399,20 +448,7 @@
               ? "rgba(209, 44, 86, 0.10)"
               : "rgba(251, 113, 133, 0.16)";
 
-          // Wick
-          ctx.beginPath();
-          ctx.moveTo(x, yHigh);
-          ctx.lineTo(x, yLow);
-          ctx.strokeStyle = wickColor;
-          ctx.lineWidth = 1.4;
-          ctx.stroke();
-
-          // Candle body with subtle top highlight
-          ctx.fillStyle = c.bull ? bullColor : bearColor;
-          ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, bodyH);
-          ctx.strokeStyle = wickColor;
-          ctx.lineWidth = 0.8;
-          ctx.strokeRect(x - bodyW / 2, bodyTop, bodyW, bodyH);
+          drawCleanCandle(x, bodyW, yHigh, yLow, bodyTop, bodyH, c.bull ? bullColor : bearColor, wickColor);
         }
       }
 
