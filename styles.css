@@ -96,6 +96,30 @@ a {
 .kz-aurora-wrap {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
+}
+
+/* Pipcy-inspired Hero Atmospheric Vignette & Seamless Bottom Fade */
+.hero.kz-aurora-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 64% 72% at 38% 46%, rgba(7, 15, 29, 0.78) 0%, rgba(7, 15, 29, 0.42) 60%, rgba(7, 15, 29, 0.05) 100%),
+    linear-gradient(to bottom, rgba(7, 15, 29, 0.18) 0%, rgba(7, 15, 29, 0.12) 48%, var(--kz-ink) 100%);
+}
+
+html[data-theme="light"] .hero.kz-aurora-wrap::before {
+  background:
+    radial-gradient(ellipse 64% 72% at 38% 46%, rgba(244, 247, 252, 0.82) 0%, rgba(244, 247, 252, 0.46) 62%, rgba(244, 247, 252, 0.06) 100%),
+    linear-gradient(to bottom, rgba(244, 247, 252, 0.12) 0%, rgba(244, 247, 252, 0.1) 50%, var(--kz-ink) 100%);
+}
+
+.hero.kz-aurora-wrap > .container {
+  position: relative;
+  z-index: 2;
 }
 
 .kz-aurora {
@@ -977,11 +1001,28 @@ html[data-theme="light"] .aurora-banner {
    FOOTER & TOAST
    ============================================================================ */
 .kz-footer {
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid var(--kz-line);
-  padding: 34px 0 44px;
+  padding: 36px 0 46px;
   margin-top: 32px;
   font-size: 13px;
   color: var(--kz-muted);
+  background-image:
+    linear-gradient(rgba(56, 213, 231, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 213, 231, 0.032) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.kz-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(56, 213, 231, 0.18) 18%, rgba(52, 211, 153, 0.52) 50%, rgba(243, 190, 98, 0.2) 82%, transparent 100%);
 }
 
 .footer-grid {
@@ -1431,6 +1472,24 @@ html[data-theme="light"] .kz-chapter-rail {
   color: var(--kz-text2);
 }
 
+.kz-ticker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 32%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(56, 213, 231, 0.14) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: kzTickerSweep 5.2s ease-in-out infinite;
+}
+
+@keyframes kzTickerSweep {
+  0% { transform: translateX(-120%); }
+  65%, 100% { transform: translateX(420%); }
+}
+
 .kz-ticker-track {
   display: flex;
   width: max-content;
@@ -1873,6 +1932,49 @@ html[data-theme="light"] .bx-showcase {
   color: var(--kz-text2);
   border-top: 1px dashed var(--kz-line);
   padding-top: 13px;
+}
+
+/* Cursor-Following Ambient Glow Orb (Pipcy Pricing-Section Effect) */
+.kz-orb-host {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.kz-orb-host > *:not(.kz-cursor-orb) {
+  position: relative;
+  z-index: 2;
+}
+
+.kz-cursor-orb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  filter: blur(64px);
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.28) 0%, rgba(56, 213, 231, 0.1) 52%, transparent 74%);
+  transition: opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+.kz-cursor-orb.is-active {
+  opacity: 1;
+}
+
+html[data-theme="light"] .kz-cursor-orb {
+  background: radial-gradient(circle, rgba(11, 138, 163, 0.14) 0%, rgba(5, 135, 95, 0.06) 54%, transparent 74%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kz-ticker::after,
+  .kz-cursor-orb {
+    display: none !important;
+  }
 }
 
 @media (max-width: 960px) {

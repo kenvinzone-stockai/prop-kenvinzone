@@ -266,26 +266,44 @@
     loop();
   }
 
-  /* ---------- 3B. Hero Ambient Market Flow Canvas (60fps Neon Price Ribbons + Nodes) ---------- */
+  /* ---------- 3B. Hero Cinematic 3D Trading Chart Background (Pipcy-Inspired, 60fps Canvas) ---------- */
   function initHeroFlowCanvas() {
     const canvas = document.getElementById("kzHeroFlowCanvas");
-    if (!canvas || prefersReduced) return;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let visible = true;
     let rafId = null;
-    let mouseX = 0.5;
-    let mouseY = 0.5;
-    let phase = 0;
+    let time = 0;
 
-    const nodes = Array.from({ length: 26 }, (_, i) => ({
-      x: (i * 0.173) % 1,
-      y: ((i * 0.317 + 0.12) % 0.85) + 0.08,
-      r: 1.2 + (i % 3) * 0.7,
-      speed: 0.00018 + (i % 4) * 0.00009,
-      color: i % 3 === 0 ? "56,213,231" : i % 3 === 1 ? "243,190,98" : "52,211,153"
-    }));
+    // Pre-generate deterministic candlestick sequence for smooth infinite loop
+    const candleCount = 46;
+    const candles = [];
+    let price = 0.28;
+    for (let i = 0; i < candleCount; i++) {
+      const wave = Math.sin(i * 0.42) * 0.055 + Math.cos(i * 0.19) * 0.035;
+      const drift = 0.011;
+      const delta = drift + wave * 0.48 + ((i % 5 === 0 ? -0.048 : 0.024));
+      const open = price;
+      const close = Math.min(0.86, Math.max(0.14, open + delta));
+      const high = Math.min(0.93, Math.max(open, close) + 0.025 + ((i * 7) % 5) * 0.011);
+      const low = Math.max(0.08, Math.min(open, close) - 0.022 - ((i * 3) % 4) * 0.01);
+      candles.push({ open, close, high, low, bull: close >= open });
+      price = close;
+      if (price > 0.78) price -= 0.24;
+    }
+
+    // Upward zig-zag growth trendline anchor points (normalized 0..1)
+    const trendPts = [
+      { x: 0.06, y: 0.78 },
+      { x: 0.21, y: 0.63 },
+      { x: 0.31, y: 0.69 },
+      { x: 0.48, y: 0.49 },
+      { x: 0.59, y: 0.56 },
+      { x: 0.77, y: 0.31 },
+      { x: 0.89, y: 0.21 }
+    ];
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
@@ -297,24 +315,171 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    function drawRibbon(w, h, baseY, amp, freq, speedMul, strokeStyle) {
-      ctx.beginPath();
-      const segs = 48;
-      const parallax = (mouseY - 0.5) * 18;
-      for (let i = 0; i <= segs; i++) {
-        const u = i / segs;
-        const x = u * w;
-        const y =
-          baseY * h +
-          parallax +
-          Math.sin(u * freq + phase * speedMul) * amp +
-          Math.cos(u * (freq * 0.55) - phase * speedMul * 0.7) * (amp * 0.5);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+    function drawScene() {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w <= 0 || h <= 0) return;
+
+      const isLight = document.documentElement.getAttribute("data-theme") === "light";
+      ctx.clearRect(0, 0, w, h);
+
+      // Slow cinematic camera pan & gentle breath zoom (~1.5% motion)
+      const camZoom = 1.02 + Math.sin(time * 0.22) * 0.018;
+      const camPanX = Math.sin(time * 0.18) * 18;
+      const camPanY = Math.cos(time * 0.14) * 8;
+
+      ctx.save();
+      ctx.translate(w * 0.5 + camPanX, h * 0.5 + camPanY);
+      ctx.scale(camZoom, camZoom);
+      ctx.rotate(-0.022);
+      ctx.translate(-w * 0.5, -h * 0.5);
+
+      // 1. Perspective coordinate chart grid (48px base with slow horizontal scroll)
+      const gridStep = 48;
+      const scrollX = (time * 10) % gridStep;
+      ctx.strokeStyle = isLight ? "rgba(11, 138, 163, 0.065)" : "rgba(56, 213, 231, 0.055)";
+      ctx.lineWidth = 1;
+      for (let x = -gridStep; x < w + gridStep * 2; x += gridStep) {
+        ctx.beginPath();
+        ctx.moveTo(x - scrollX, -40);
+        ctx.lineTo(x - scrollX - 24, h + 40);
+        ctx.stroke();
       }
-      ctx.strokeStyle = strokeStyle;
-      ctx.lineWidth = 1.4;
+      for (let y = 0; y < h + gridStep; y += gridStep) {
+        ctx.beginPath();
+        ctx.moveTo(-40, y);
+        ctx.lineTo(w + 40, y);
+        ctx.stroke();
+      }
+
+      // 2. Soft atmospheric background typography (depth-of-field watermark like Pipcy)
+      ctx.save();
+      ctx.font = "800 " + Math.max(28, Math.min(58, Math.round(w * 0.042))) + "px 'JetBrains Mono', monospace";
+      ctx.fillStyle = isLight ? "rgba(11, 138, 163, 0.045)" : "rgba(52, 211, 153, 0.045)";
+      ctx.fillText("FUNDED CAPITAL", w * 0.54 - (time * 4) % 90, h * 0.27);
+      ctx.fillStyle = isLight ? "rgba(180, 108, 0, 0.04)" : "rgba(56, 213, 231, 0.04)";
+      ctx.fillText("CME FUTURES", w * 0.08 + (time * 3) % 70, h * 0.86);
+      ctx.restore();
+
+      // 3. Looping translucent glowing candlestick bars
+      const spacing = Math.max(26, w / 28);
+      const totalLoopW = candleCount * spacing;
+      const candleShift = (time * 16) % totalLoopW;
+      const chartTop = h * 0.14;
+      const chartH = h * 0.74;
+
+      for (let pass = 0; pass < 2; pass++) {
+        for (let i = 0; i < candleCount; i++) {
+          const c = candles[i];
+          const x = i * spacing - candleShift + pass * totalLoopW;
+          if (x < -spacing || x > w + spacing) continue;
+
+          const yHigh = chartTop + (1 - c.high) * chartH;
+          const yLow = chartTop + (1 - c.low) * chartH;
+          const yOpen = chartTop + (1 - c.open) * chartH;
+          const yClose = chartTop + (1 - c.close) * chartH;
+          const bodyTop = Math.min(yOpen, yClose);
+          const bodyH = Math.max(5, Math.abs(yClose - yOpen));
+          const bodyW = Math.max(8, spacing * 0.44);
+
+          const isCyan = i % 3 === 0;
+          const bullColor = isLight
+            ? isCyan
+              ? "rgba(11, 138, 163, 0.15)"
+              : "rgba(5, 135, 95, 0.14)"
+            : isCyan
+              ? "rgba(56, 213, 231, 0.18)"
+              : "rgba(52, 211, 153, 0.22)";
+          const bearColor = isLight ? "rgba(209, 44, 86, 0.08)" : "rgba(251, 113, 133, 0.11)";
+          const wickColor = c.bull
+            ? isLight
+              ? "rgba(5, 135, 95, 0.18)"
+              : "rgba(52, 211, 153, 0.30)"
+            : isLight
+              ? "rgba(209, 44, 86, 0.10)"
+              : "rgba(251, 113, 133, 0.16)";
+
+          // Wick
+          ctx.beginPath();
+          ctx.moveTo(x, yHigh);
+          ctx.lineTo(x, yLow);
+          ctx.strokeStyle = wickColor;
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+
+          // Candle body with subtle top highlight
+          ctx.fillStyle = c.bull ? bullColor : bearColor;
+          ctx.fillRect(x - bodyW / 2, bodyTop, bodyW, bodyH);
+          ctx.strokeStyle = wickColor;
+          ctx.lineWidth = 0.8;
+          ctx.strokeRect(x - bodyW / 2, bodyTop, bodyW, bodyH);
+        }
+      }
+
+      // 4. Luminous upward zig-zag growth trendline + glowing arrowhead
+      const pulse = 0.72 + Math.sin(time * 1.4) * 0.28;
+      const pts = trendPts.map((p, idx) => ({
+        x: p.x * w,
+        y: p.y * h + Math.sin(time * 0.7 + idx * 0.8) * 5
+      }));
+
+      // Soft area fill under trendline
+      const areaGrad = ctx.createLinearGradient(0, h * 0.18, 0, h * 0.92);
+      if (isLight) {
+        areaGrad.addColorStop(0, "rgba(11, 138, 163, 0.12)");
+        areaGrad.addColorStop(1, "rgba(11, 138, 163, 0)");
+      } else {
+        areaGrad.addColorStop(0, "rgba(52, 211, 153, 0.18)");
+        areaGrad.addColorStop(0.55, "rgba(56, 213, 231, 0.06)");
+        areaGrad.addColorStop(1, "rgba(56, 213, 231, 0)");
+      }
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, h);
+      pts.forEach((p) => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(pts[pts.length - 1].x, h);
+      ctx.closePath();
+      ctx.fillStyle = areaGrad;
+      ctx.fill();
+
+      // Trendline stroke with glow
+      const lineGrad = ctx.createLinearGradient(pts[0].x, pts[0].y, pts[pts.length - 1].x, pts[pts.length - 1].y);
+      lineGrad.addColorStop(0, isLight ? "rgba(11, 138, 163, 0.25)" : "rgba(56, 213, 231, 0.35)");
+      lineGrad.addColorStop(0.55, isLight ? "rgba(5, 135, 95, 0.45)" : "rgba(52, 211, 153, 0.68)");
+      lineGrad.addColorStop(1, isLight ? "rgba(180, 108, 0, 0.50)" : "rgba(243, 190, 98, 0.82)");
+
+      ctx.save();
+      ctx.shadowColor = isLight ? "rgba(5, 135, 95, 0.25)" : "rgba(52, 211, 153, 0.55)";
+      ctx.shadowBlur = isLight ? 8 : 16;
+      ctx.beginPath();
+      pts.forEach((p, idx) => (idx === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+      ctx.strokeStyle = lineGrad;
+      ctx.lineWidth = 2.4;
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
       ctx.stroke();
+
+      // Arrowhead at the peak
+      const tip = pts[pts.length - 1];
+      const prev = pts[pts.length - 2];
+      const ang = Math.atan2(tip.y - prev.y, tip.x - prev.x);
+      const headLen = 13;
+      ctx.beginPath();
+      ctx.moveTo(tip.x, tip.y);
+      ctx.lineTo(tip.x - headLen * Math.cos(ang - 0.45), tip.y - headLen * Math.sin(ang - 0.45));
+      ctx.moveTo(tip.x, tip.y);
+      ctx.lineTo(tip.x - headLen * Math.cos(ang + 0.45), tip.y - headLen * Math.sin(ang + 0.45));
+      ctx.strokeStyle = isLight ? "rgba(180, 108, 0, 0.62)" : `rgba(243, 190, 98, ${(0.72 * pulse + 0.22).toFixed(2)})`;
+      ctx.lineWidth = 2.4;
+      ctx.stroke();
+
+      // Pulsing beacon halo at arrowhead
+      ctx.beginPath();
+      ctx.arc(tip.x, tip.y, 6 + pulse * 5, 0, Math.PI * 2);
+      ctx.fillStyle = isLight ? "rgba(180, 108, 0, 0.14)" : `rgba(243, 190, 98, ${(0.22 * pulse).toFixed(2)})`;
+      ctx.fill();
+      ctx.restore();
+
+      ctx.restore();
     }
 
     function tick() {
@@ -322,64 +487,22 @@
         rafId = null;
         return;
       }
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-      if (w > 0 && h > 0) {
-        ctx.clearRect(0, 0, w, h);
-        phase += 0.012;
-
-        // 3 flowing market telemetry ribbons
-        drawRibbon(w, h, 0.32, 22, 5.2, 1.0, "rgba(56, 213, 231, 0.16)");
-        drawRibbon(w, h, 0.56, 28, 4.1, -0.75, "rgba(243, 190, 98, 0.12)");
-        drawRibbon(w, h, 0.74, 18, 6.4, 0.65, "rgba(52, 211, 153, 0.11)");
-
-        // Floating data nodes with subtle links
-        const px = (mouseX - 0.5) * 20;
-        const py = (mouseY - 0.5) * 14;
-        for (let i = 0; i < nodes.length; i++) {
-          const n = nodes[i];
-          n.x = (n.x + n.speed) % 1;
-          const x = n.x * w + px * (0.4 + (i % 3) * 0.25);
-          const y = n.y * h + Math.sin(phase + i) * 6 + py * 0.35;
-
-          ctx.beginPath();
-          ctx.arc(x, y, n.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${n.color}, 0.45)`;
-          ctx.fill();
-
-          // Connect nearby nodes
-          for (let j = i + 1; j < nodes.length; j++) {
-            const m = nodes[j];
-            const mx = m.x * w + px * (0.4 + (j % 3) * 0.25);
-            const my = m.y * h + Math.sin(phase + j) * 6 + py * 0.35;
-            const dx = x - mx;
-            const dy = y - my;
-            const distSq = dx * dx + dy * dy;
-            if (distSq < 13500) {
-              const alpha = (1 - distSq / 13500) * 0.11;
-              ctx.beginPath();
-              ctx.moveTo(x, y);
-              ctx.lineTo(mx, my);
-              ctx.strokeStyle = `rgba(56, 213, 231, ${alpha.toFixed(3)})`;
-              ctx.lineWidth = 0.8;
-              ctx.stroke();
-            }
-          }
-        }
+      if (!prefersReduced) {
+        time += 0.016;
       }
-      rafId = requestAnimationFrame(tick);
+      drawScene();
+      if (!prefersReduced) {
+        rafId = requestAnimationFrame(tick);
+      }
     }
 
     resize();
     window.addEventListener("resize", resize, { passive: true });
-    window.addEventListener(
-      "pointermove",
-      (e) => {
-        mouseX = e.clientX / Math.max(1, window.innerWidth);
-        mouseY = e.clientY / Math.max(1, window.innerHeight);
-      },
-      { passive: true }
-    );
+    // Re-draw immediately on theme toggle when reduced-motion is active
+    const themeBtn = document.getElementById("themeToggle");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", () => requestAnimationFrame(drawScene));
+    }
 
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver(
@@ -392,6 +515,48 @@
       io.observe(canvas);
     }
     tick();
+  }
+
+  /* ---------- 3B-2. Cursor-Following Ambient Glow Orb (Pipcy Pricing-Section Effect) ---------- */
+  function initCursorOrbs() {
+    if (prefersReduced || window.innerWidth < 900) return;
+    const targets = document.querySelectorAll("#chi-tiet-quy, #cong-cu, #so-sanh-dong-tk, #couponLiveShowcase");
+    targets.forEach((sec) => {
+      sec.classList.add("kz-orb-host");
+      const orb = document.createElement("div");
+      orb.className = "kz-cursor-orb";
+      orb.setAttribute("aria-hidden", "true");
+      sec.insertBefore(orb, sec.firstChild);
+
+      let raf = null;
+      let gx = 0;
+      let gy = 0;
+
+      sec.addEventListener(
+        "pointermove",
+        (e) => {
+          const r = sec.getBoundingClientRect();
+          gx = e.clientX - r.left;
+          gy = e.clientY - r.top;
+          orb.classList.add("is-active");
+          if (!raf) {
+            raf = requestAnimationFrame(() => {
+              orb.style.transform = `translate3d(${(gx - 210).toFixed(1)}px, ${(gy - 210).toFixed(1)}px, 0)`;
+              raf = null;
+            });
+          }
+        },
+        { passive: true }
+      );
+
+      sec.addEventListener(
+        "pointerleave",
+        () => {
+          orb.classList.remove("is-active");
+        },
+        { passive: true }
+      );
+    });
   }
 
   /* ---------- 3C. 3D Perspective Tilt on Pricing & Coupon Cards ---------- */
@@ -637,6 +802,7 @@
     initScrollTelemetry();
     initSpotlights();
     initHeroFlowCanvas();
+    initCursorOrbs();
     initDrawdownCanvas();
     init3DTilt();
     initPriceRollAndSparkles();
